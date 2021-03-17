@@ -1,38 +1,68 @@
-.App {
-  text-align: center;
+#container-app {
+  display: grid;
+  grid-template-areas:
+    "espaco-cabecalho"
+    "espaco-conteudo"
+    "espaco-rodape";
+  grid-template-rows: 10% 75% 15%;
+  height: 100%;
+  width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#espaco-conteudo {
+  grid-area: espaco-conteudo;
+  display: grid;
+  grid-template-areas: "espaco-centro";
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#espaco-cabecalho {
+  grid-area: espaco-cabecalho;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#espaco-esquerdo {
+  grid-area: espaco-esquerdo;
+  display: none;
+}
+
+#espaco-centro {
+  grid-area: espaco-centro;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  overflow-y: auto;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+#espaco-direita {
+  grid-area: espaco-direita;
+  display: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+#espaco-rodape {
+  grid-area: espaco-rodape;
+}
+
+@media (min-width: 1200px) {
+  #container-app {
+    grid-template-areas:
+      "espaco-cabecalho espaco-cabecalho espaco-cabecalho"
+      "espaco-conteudo espaco-conteudo espaco-conteudo"
+      "espaco-rodape espaco-rodape espaco-rodape";
   }
-  to {
-    transform: rotate(360deg);
+
+  #espaco-conteudo {
+    grid-template-areas: "espaco-esquerdo espaco-centro espaco-direita";
+    grid-template-columns: 15% 70% 15%;
+  }
+
+  #espaco-centro {
+    justify-content: center;
+  }
+
+  #espaco-esquerdo {
+    display: block;
+  }
+
+  #espaco-direita {
+    display: block;
   }
 }
