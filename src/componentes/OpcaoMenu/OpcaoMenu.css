@@ -1,0 +1,14 @@
+a span {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.item-menu {
+  margin: -10px !important;
+}
+
+@media (min-width: 1200px) {
+  .item-menu {
+    margin: 0 !important;
+  }
+}
