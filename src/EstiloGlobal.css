@@ -1,0 +1,28 @@
+.p-10-px {
+  padding: 10px;
+}
+
+.h-100-pc {
+  height: 100% !important;
+}
+
+.w-100-pc {
+  width: 100% !important;
+}
+
+.mostrar {
+  display: block !important;
+}
+
+.esconder {
+  display: none !important;
+}
+
+a {
+  color: black;
+}
+
+a:hover{
+  color: black;
+  text-decoration: none;
+}
