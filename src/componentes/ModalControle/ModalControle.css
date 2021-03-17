@@ -1,0 +1,23 @@
+.fechar-modal {
+  font-size: 1.5rem;
+  color: white;
+  float: right;
+}
+
+.padrao-modal {
+  border-color: #105aad;
+  background-color: #105aad;
+}
+
+.cabelhado-modal {
+  border-radius: 0 !important ;
+}
+
+.corpo-modal {
+  border: 1px solid #105aad;
+  border-radius: 0 !important ;
+}
+
+.rodape-modal {
+  border-radius: 0 !important;
+}
