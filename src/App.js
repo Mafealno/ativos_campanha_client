@@ -2,6 +2,7 @@ import { Redirect, Route } from "react-router-dom";
 import Rota from "./componentes/Rota/Rota";
 import MenuAplicativo from "./componentes/MenuAplicativo/MenuAplicativo";
 import ItemMenuPrincipal from "./componentes/ItemMenuPrincipal/ItemMenuPrincipal";
+import TelaGestaoUsuarios from "./componentes/TelaGestaoUsuarios/TelaGestaoUsuarios";
 import './App.css';
 import './EstiloGlobal.css';
 
@@ -40,7 +41,7 @@ function App() {
             }   
             />
             <section id="container-telas-renderizar">
-              <Route path="/usuarios" render={() => <div>usuarios</div>} />  
+              <Route path="/usuarios" render={() => <div><TelaGestaoUsuarios/></div>} />  
               <Route path="/campanhas" render={() => <div>campanhas</div>} />  
               <Route path="/arquivo-retorno" render={() => <div>arquivo-retorno</div>} />  
               <Route path="/limpeza" render={() => <div>limpeza</div>} />  
