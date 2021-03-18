@@ -1,6 +1,5 @@
 import { Redirect, Route } from "react-router-dom";
 import Rota from "./componentes/Rota/Rota";
-import OpcaoMenu from "./componentes/OpcaoMenu/OpcaoMenu";
 import MenuAplicativo from "./componentes/MenuAplicativo/MenuAplicativo";
 import ItemMenuPrincipal from "./componentes/ItemMenuPrincipal/ItemMenuPrincipal";
 import './App.css';
@@ -12,9 +11,7 @@ function App() {
       <Redirect to={{ pathname:"/dashboard" }} />
       <div id="container-app">
         <header id="espaco-cabecalho" className="p-10-px">
-          <OpcaoMenu>
             <MenuAplicativo />
-          </OpcaoMenu>
         </header>
         <main id="espaco-conteudo">
           <div id="espaco-esquerdo" className="p-10-px"></div>
