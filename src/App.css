@@ -13,6 +13,7 @@
   grid-area: espaco-conteudo;
   display: grid;
   grid-template-areas: "espaco-centro";
+  margin-top: 15px
 }
 
 #espaco-cabecalho {
