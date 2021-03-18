@@ -51,3 +51,8 @@ footer {
   background-color: rgba(0, 0, 0, 0.03);
 }
 
+@media (min-height: 1200px){
+  #container-menu-aplicativo {
+    padding: 1% 2%;
+  }
+}
