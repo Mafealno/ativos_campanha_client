@@ -6,12 +6,11 @@ import store from "../../stores/store";
 import * as loginUtils from "../../utils/Login"
 
 const RotaPrivada = ({...rest}) => {
-    return <Route {...rest} render={props =>(
-        loginUtils.usuarioLogado(rest.exigeAutenticacao).then((response) => response) ?
-        (<Provider store={store}><rest.componente {...props} /></Provider>) 
+    return <Route {...rest} render={props => 
+        loginUtils.usuarioLogado(rest.exigeAutenticacao) ? <Provider store={store}><rest.componente {...props} /></Provider>
         :
-        (<Redirect to={{ pathname:"/login" }} />)
-    )}
+        <Redirect to={{ pathname:"/login" }} />
+    }
     />
 }
 
