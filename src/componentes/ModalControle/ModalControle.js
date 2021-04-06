@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalTitle from "react-bootstrap/ModalTitle";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalFooter from "react-bootstrap/ModalFooter";
-import "./ModalControl.css";
+
+import "./ModalControle.css";
 
 function ModalControle(props) {
   return (
@@ -15,26 +17,26 @@ function ModalControle(props) {
         size={props.tamanhoModal || "lg"}
         aria-labelledby="contained-modal-title-vcenter"
         className={props.estiloModal}
-        onHide={()=> props.onHide()}
+        onHide={()=> props.fecharModal()}
         centered
       >
-        <ModalHeader className={props.estiloModalHeader}>
-          <ModalTitle>{props.tituloModal}</ModalTitle>
-          {props.conteudoHeader || (
+        <ModalHeader className={props.estiloModalCabecalho}>
+          <ModalTitle className={props.estiloTitulo}>{props.tituloModal}</ModalTitle>
+          {props.conteudoCabecalho || (
             <div className="fechar-modal">
-              <a href="#" onClick={() => props.onHide()}>
+              <a href="#" onClick={() => props.fecharModal()}>
                 <span className="fa fa-close fechar-modal" />
               </a>
             </div>
           )}
         </ModalHeader>
-        <ModalBody className={props.estiloModalBody}>
-          {props.conteudoBody}
+        <ModalBody className={props.estiloModalCorpo}>
+          {props.conteudoCorpo}
         </ModalBody>
-        {props.conteudoFooter && (
+        {props.conteudoRodape && (
           <>
-            <ModalFooter className={props.estiloModalFooter}>
-              {props.conteudoFooter}
+            <ModalFooter className={props.estiloModalRodape}>
+              {props.conteudoRodape}
             </ModalFooter>
           </>
         )}
