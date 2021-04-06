@@ -2,9 +2,8 @@
   display: grid;
   grid-template-areas:
     "espaco-cabecalho"
-    "espaco-conteudo"
-    "espaco-rodape";
-  grid-template-rows: 10% 75% 15%;
+    "espaco-conteudo";
+  grid-template-rows: 10% 90%;
   height: 100%;
   width: 100%;
 }
@@ -29,7 +28,6 @@
   grid-area: espaco-centro;
   display: flex;
   flex-wrap: wrap;
-  overflow-y: auto;
   justify-content: center;
 }
 
@@ -38,9 +36,6 @@
   display: none;
 }
 
-#espaco-rodape {
-  grid-area: espaco-rodape;
-}
 
 @media (min-width: 1200px) {
   #container-app {

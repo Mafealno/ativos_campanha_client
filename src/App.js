@@ -1,28 +1,51 @@
-import { Redirect, Route } from "react-router-dom";
+import { useEffect } from 'react';
+import { Redirect, Route, useHistory } from "react-router-dom";
+
 import Rota from "./componentes/Rota/Rota";
 import MenuAplicativo from "./componentes/MenuAplicativo/MenuAplicativo";
 import ItemMenuPrincipal from "./componentes/ItemMenuPrincipal/ItemMenuPrincipal";
 import TelaGestaoUsuarios from "./componentes/TelaGestaoUsuarios/TelaGestaoUsuarios";
+import ToastControle from "./componentes/ToastControle/ToastControle";
+import Login from "./componentes/Login/Login";
+
 import './App.css';
 import './EstiloGlobal.css';
 
 function App() {
+
+  const historico = useHistory();
+
+    useEffect(() => {
+      if(historico){
+        if(historico.location.pathname === "/" || historico.location.pathname === "/dashboard"){
+          <Redirect to={{ pathname: "/dashboard/menu" }} />
+        }
+      }
+    }, [historico])
+
   return (
     <>
-      <Redirect to={{ pathname:"/dashboard" }} />
       <div id="container-app">
         <header id="espaco-cabecalho" className="p-10-px">
-            <MenuAplicativo />
+        <Rota
+          caminho="/dashboard"
+          exigeAutenticacao={true}
+          componente={()=> <MenuAplicativo />}
+          />
         </header>
         <main id="espaco-conteudo">
           <div id="espaco-esquerdo" className="p-10-px"></div>
           <div id="espaco-centro" className="p-10-px">
-            <Rota 
-            caminho="/dashboard" 
+            <Rota
+            caminho="/login"
             exigeAutenticacao={false}
+            componente={()=> <Login />} />
+            <Rota 
+            caminho="/dashboard/menu" 
+            exigeAutenticacao={true}
             componente={()=> 
             <>
-              <ItemMenuPrincipal titulo="Gestão de usuários" acaoExecutar={"/usuarios"}>
+              <ItemMenuPrincipal titulo="Gestão de usuários" acaoExecutar={"/dashboard/usuarios"}>
                 Criação de usuários do sistema
               </ItemMenuPrincipal>
               <ItemMenuPrincipal titulo="Gestão de Campanhas" acaoExecutar={"/campanhas"}>
@@ -40,21 +63,18 @@ function App() {
             </>
             }   
             />
-            <section id="container-telas-renderizar">
-              <Route path="/usuarios" render={() => <div><TelaGestaoUsuarios/></div>} />  
-              <Route path="/campanhas" render={() => <div>campanhas</div>} />  
-              <Route path="/arquivo-retorno" render={() => <div>arquivo-retorno</div>} />  
-              <Route path="/limpeza" render={() => <div>limpeza</div>} />  
-              <Route path="/saneamento" render={() => <div>saneamento</div>} />  
+            <section className="w-100-pc">
+              <Rota caminho="/dashboard/usuarios" exigeAutenticacao={true} componente={() => <TelaGestaoUsuarios/>} /> 
+              <Rota caminho="/dashboard/campanhas" exigeAutenticacao={true} componente={() => <div>campanhas</div>} />  
+              <Rota caminho="/dashboard/arquivo-retorno" exigeAutenticacao={true} componente={() => <div>arquivo-retorno</div>} />  
+              <Rota caminho="/dashboard/limpeza" exigeAutenticacao={true} componente={() => <div>limpeza</div>} />  
+              <Rota caminho="/dashboard/saneamento" exigeAutenticacao={true} componente={() => <div>saneamento</div>} />  
             </section>    
           </div>
           <div id="espaco-direita" className="p-10-px"></div>
-        </main>
-        <footer id="espaco-rodape" className="p-10-px">
-          
-        </footer>
-        
+        </main>        
       </div>
+      <ToastControle />
     </>
   );
 }
