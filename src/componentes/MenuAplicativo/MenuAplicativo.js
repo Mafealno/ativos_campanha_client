@@ -1,6 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
+
+import * as loginUtils from "../../utils/Login"; 
+
 import "./MenuAplicativo.css";
 
 function MenuAplicativo() {
@@ -29,9 +32,9 @@ function MenuAplicativo() {
                 </span>
             </div>
             <div id="janela-suspensa" className={ showJanelaSuspensa ? "mostrar" : "esconder"}>
-                <Link to="/dashboard"><div><i className="fa fa-list mr-3"></i>Dashboard</div></Link>
+                <Link to="/dashboard/menu"><div><i className="fa fa-list mr-3"></i>Dashboard</div></Link>
                 <Link to="/"><div><i className="fa fa-gears mr-3"></i>Alterar minha senha</div></Link>
-                <Link to="/"><footer><i className="fa fa-sign-out mr-3"></i>Sair</footer></Link>
+                <Link to="/login"><footer onClick={()=> loginUtils.deslogar()}><i className="fa fa-sign-out mr-3"></i>Sair</footer></Link>
             </div>
         </div>
     )
