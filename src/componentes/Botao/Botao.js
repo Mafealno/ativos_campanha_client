@@ -1,9 +1,9 @@
-import React from 'react'
-
+import React from "react";
+import "./Botao.css";
 
 function Botao(props) {
     return (
-        <button type="button" className={"btn " + props.estilo} onClick={() => props.clique}>
+        <button type="button" className={"botao " + props.estilo} onClick={props.clique}>
             {props.children}
         </button>
     )
