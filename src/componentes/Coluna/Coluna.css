@@ -1,0 +1,15 @@
+.container-coluna{
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0px 10px;
+}
+
+.container-coluna:first-child{
+    padding-left: 0;
+}
+
+.container-coluna:last-child{
+    padding-right: 0;
+}
