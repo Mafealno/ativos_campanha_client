@@ -1,0 +1,71 @@
+#container-login{
+    height: 400px;
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    display: grid;
+    grid-template-areas: 
+    "login-titulo"
+    "login-corpo";
+    grid-template-rows: 150px auto;
+    box-shadow: 0px 0px 15px 6px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0px 0px 15px 6px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 15px 6px rgba(0,0,0,0.3);
+}
+
+.container-corpo-login{
+    width: 25rem;
+}
+
+#login-titulo{
+    grid-area: login-titulo;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    flex-grow: 1;
+    padding: 10px;
+    flex-direction: column;
+}
+
+#login-titulo > img {
+    height: 100%;
+    width: 60%;
+}
+
+#login-corpo{
+    grid-area: login-corpo;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.titulo-aponta{
+    font-weight: bold;
+    font-size: 25px;
+    color: #105AAD;
+}
+
+#botao-login{
+    color: white;
+    background-color: #105AAD;
+    border-color: #105AAD;
+    border-radius: 0 !important;
+    height: calc(1.5em + .75rem + 10px) !important;
+}
+
+#copyright-ativos{
+    color: #5b5d5e;
+}
+
+.botao-login{
+    width: 200px;
+}
+
+@media (min-width: 1200px){
+    #container-login{
+        height: 30rem;
+        width: 40rem;
+    }
+}
