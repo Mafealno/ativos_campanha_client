@@ -14,7 +14,7 @@ function ItemMenuPrincipal(props) {
             </div>
             <footer>
                 <Link to={props.acaoExecutar}>
-                    <Botao estilo={"h-100-pc w-100-pc btn-primary"}>
+                    <Botao estilo={"h-100-pc w-100-pc btn-azul"}>
                         Entrar
                     </Botao>
                 </Link>
