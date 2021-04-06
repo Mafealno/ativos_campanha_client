@@ -10,6 +10,14 @@
   width: 100% !important;
 }
 
+.w-100-px {
+  width: 100px !important;
+}
+
+.w-120-px {
+  width: 120px !important;
+}
+
 .mostrar {
   display: block !important;
 }
@@ -25,4 +33,23 @@ a {
 a:hover{
   color: black;
   text-decoration: none;
+}
+
+.cortar-texto{
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+p{
+  margin-bottom: 0 !important;
+}
+
+.form-row, .row {
+  margin-bottom: 15px;
+}
+
+.margin-0{
+  margin: 0 !important;
 }
