@@ -1,0 +1,30 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}  
+    .carregando{
+      width: 50px;
+      height: 50px;
+      transition: .5s ease-in-out;
+      animation: animacaoCarregando 1s infinite;
+  
+      background:
+        conic-gradient(
+          from 90deg,
+          transparent 12.5%, #EB1E11 12.5%,
+          #EB1E11 37.5%, transparent 37.5%,
+          transparent 62.5%, #105AAD 62.5%,
+          #105AAD 87.5%, transparent 87.5%
+        )
+        50% 50% / 32% 50%
+        no-repeat;
+    }
+  
+  @keyframes animacaoCarregando{
+    100%{
+      transform:rotate(360deg);
+    }
+  }
