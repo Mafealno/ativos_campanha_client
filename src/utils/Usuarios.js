@@ -36,9 +36,35 @@ export const buscarUsuarioPorNome = async (nomeUsuario) => {
     })
 }
 
+export const buscarUsuarioPorId = async (idUsuario) => {
+    return await backEndUtils.chamarBackEnd("GET", "/usuarios/" + idUsuario).then((response) => {
+        if(response.status == 200){
+            return response.json().then(dados => {
+                if(dados.success){
+                    return dados.data;
+                }else{
+                    return {
+                       _id: idUsuario,
+                       nome: ""
+                    }
+                }
+            })
+        }
+    })
+}
+
 export const cadastrarUsuario = async (usuario) => {
 
     return await backEndUtils.chamarBackEnd("POST", "/usuarios/", usuario).then((response) => {
+        if(response.status){
+            return response.json().then(dados => dados)
+        }
+    })
+}
+
+export const atualizarUsuario = async (usuario, id) => {
+
+    return await backEndUtils.chamarBackEnd("PUT", "/usuarios/" + id, usuario).then((response) => {
         if(response.status){
             return response.json().then(dados => dados)
         }
