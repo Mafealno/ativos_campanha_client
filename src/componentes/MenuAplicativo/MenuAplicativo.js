@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import * as loginUtils from "../../utils/Login"; 
 
 import "./MenuAplicativo.css";
 
-function MenuAplicativo() {
+function MenuAplicativo(props) {
 
     const [usuario, setUsuario] = useState({});
     const [showJanelaSuspensa, setShowJanelaSuspensa] = useState(false);
@@ -17,6 +18,12 @@ function MenuAplicativo() {
         }
       }, [showJanelaSuspensa]);
 
+      useEffect(() => {
+        if(props.usuarioLogado.id){
+            setUsuario(props.usuarioLogado);
+        }
+      }, [props.usuarioLogado]);
+
       const listenerClick = () => {
         window.removeEventListener("click", listenerClick);
         setShowJanelaSuspensa(false);
@@ -24,7 +31,7 @@ function MenuAplicativo() {
 
     return (
         <div id="container-menu-aplicativo">
-            <div className="nome-empresa">Ativos S.A.</div>
+            <Link to="/dashboard/menu"><div className="nome-empresa">Ativos S.A.</div></Link>
             <div className="opcoes-menu ">
                 <span onClick={()=> setShowJanelaSuspensa(true)}>
                     {usuario.nome || "Usuário"}
@@ -40,4 +47,13 @@ function MenuAplicativo() {
     )
 }
 
-export default MenuAplicativo
+const mapStateToProps = (state) => ({
+    usuarioLogado: state.LoginReducer.usuarioLogado,
+});
+
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MenuAplicativo);
