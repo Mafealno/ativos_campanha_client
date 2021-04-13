@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
-import { Redirect, Route, useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 import Rota from "./componentes/Rota/Rota";
+import Logar from "./componentes/Logar/Logar";
 import MenuAplicativo from "./componentes/MenuAplicativo/MenuAplicativo";
 import ItemMenuPrincipal from "./componentes/ItemMenuPrincipal/ItemMenuPrincipal";
 import TelaGestaoUsuarios from "./componentes/TelaGestaoUsuarios/TelaGestaoUsuarios";
+import TelaGestaoCampanhas from "./componentes/TelaGestaoCampanhas/TelaGestaoCampanhas";
+import TelaHistoricoArquivoRetorno from "./componentes/TelaHistoricoArquivoRetorno/TelaHistoricoArquivoRetorno";
+import TelaHistoricoLimpeza from "./componentes/TelaHistoricoLimpeza/TelaHistoricoLimpeza";
 import ToastControle from "./componentes/ToastControle/ToastControle";
-import Login from "./componentes/Login/Login";
 
 import './App.css';
 import './EstiloGlobal.css';
@@ -39,7 +42,7 @@ function App() {
             <Rota
             caminho="/login"
             exigeAutenticacao={false}
-            componente={()=> <Login />} />
+            componente={()=> <Logar />} />
             <Rota 
             caminho="/dashboard/menu" 
             exigeAutenticacao={true}
@@ -48,16 +51,16 @@ function App() {
               <ItemMenuPrincipal titulo="Gestão de usuários" acaoExecutar={"/dashboard/usuarios"}>
                 Criação de usuários do sistema
               </ItemMenuPrincipal>
-              <ItemMenuPrincipal titulo="Gestão de Campanhas" acaoExecutar={"/campanhas"}>
+              <ItemMenuPrincipal titulo="Gestão de Campanhas" acaoExecutar={"/dashboard/campanhas"}>
                 Gerar arquivos de retorno e zerar campanhas
               </ItemMenuPrincipal>
-              <ItemMenuPrincipal titulo="Historico de Arquivos de Retorno" acaoExecutar={"/arquivo-retorno"}>
+              <ItemMenuPrincipal titulo="Historico de Arquivos de Retorno" acaoExecutar={"/dashboard/arquivo-retorno"}>
                 Historico de geração de arquivo de retorno
               </ItemMenuPrincipal>
-              <ItemMenuPrincipal titulo="Historico de Limpeza" acaoExecutar={"/limpeza"}>
+              <ItemMenuPrincipal titulo="Historico de Limpeza" acaoExecutar={"/dashboard/limpeza"}>
                 Historico de limpeza de Campanhas
               </ItemMenuPrincipal>
-              <ItemMenuPrincipal titulo="Saneamento de mailing" acaoExecutar={"/saneamento"}>
+              <ItemMenuPrincipal titulo="Saneamento de mailing" acaoExecutar={"/dashboard/saneamento"}>
                 Regras de Saneamento do processo de importação das campanhas
               </ItemMenuPrincipal>
             </>
@@ -65,9 +68,9 @@ function App() {
             />
             <section className="w-100-pc">
               <Rota caminho="/dashboard/usuarios" exigeAutenticacao={true} componente={() => <TelaGestaoUsuarios/>} /> 
-              <Rota caminho="/dashboard/campanhas" exigeAutenticacao={true} componente={() => <div>campanhas</div>} />  
-              <Rota caminho="/dashboard/arquivo-retorno" exigeAutenticacao={true} componente={() => <div>arquivo-retorno</div>} />  
-              <Rota caminho="/dashboard/limpeza" exigeAutenticacao={true} componente={() => <div>limpeza</div>} />  
+              <Rota caminho="/dashboard/campanhas" exigeAutenticacao={true} componente={() => <TelaGestaoCampanhas />} />  
+              <Rota caminho="/dashboard/arquivo-retorno" exigeAutenticacao={true} componente={() => <TelaHistoricoArquivoRetorno />} />  
+              <Rota caminho="/dashboard/limpeza" exigeAutenticacao={true} componente={() => <TelaHistoricoLimpeza />} />  
               <Rota caminho="/dashboard/saneamento" exigeAutenticacao={true} componente={() => <div>saneamento</div>} />  
             </section>    
           </div>
