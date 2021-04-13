@@ -1,0 +1,39 @@
+#container-tela-gestao-campanhas{
+    display: grid;
+    grid-template-areas: 
+    "cabecalho-tela-gestao-campanhas"
+    "conteudo-tela-gestao-campanhas";
+    grid-template-rows: 10% 90%;
+    height: 100%;
+    width: 100%;
+}
+
+#cabecalho-tela-gestao-campanhas{
+    grid-area: cabecalho-tela-gestao-campanhas;
+    display: flex;
+    align-items: center;
+}
+
+#conteudo-tela-gestao-campanhas{
+    grid-area: conteudo-tela-gestao-campanhas;
+}
+
+#cabecalho-tela-gestao-campanhas > h2 {
+   font-weight: bold; 
+}
+
+.sessao-conteudo-tela-gestao-campanhas{
+    margin-bottom: 10px;
+}
+
+.sessao-conteudo-tela-gestao-campanhas:first-child{
+    height: 90px;
+}
+
+#conteudo-tela-gestao-campanhas > div.d-flex {
+    height: 60px;
+}
+
+main > div.sessao-conteudo-tela-gestao-campanhas:last-child{
+    padding: 5px;
+}
