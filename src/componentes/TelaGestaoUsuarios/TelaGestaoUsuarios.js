@@ -19,12 +19,6 @@ import "./TelaGestaoUsuarios.css";
 
 function TelaGestaoUsuarios() {
 
-    const [valorBuscaUsuario, setValorBuscaUsuario] = useState("");
-    const [configPaginado, setConfigPaginado] = useState({
-        quantidePorPagina: 10,
-        paginaAtual: 1
-    })
-
     const [listaUsuariosExibicao, setListaUsuariosExibicao] = useState([]);
     const [paginacaoExibicao, setPaginacaoExibicao] = useState([]);
     const [carregando, setCarregando] = useState(true);
@@ -32,6 +26,12 @@ function TelaGestaoUsuarios() {
     const [showModalConfirmacao, setShowModalConfirmacao] = useState(false);
     const [dadosEdicao, setDadosEdicao] = useState({});
     const [idDeletar, setIdDeletar] = useState(0);
+    const [valorBuscaUsuario, setValorBuscaUsuario] = useState("");
+    const [configPaginado, setConfigPaginado] = useState({
+        quantidePorPagina: 10,
+        paginaAtual: 1
+    })
+
 
     useEffect(() => {
         usuariosUtils.buscarUsuariosPaginado(configPaginado.quantidePorPagina, configPaginado.paginaAtual).then((dados) => {

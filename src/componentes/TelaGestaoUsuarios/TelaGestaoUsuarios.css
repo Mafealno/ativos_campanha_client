@@ -26,10 +26,6 @@
     margin-bottom: 10px;
 }
 
-.sessao-conteudo-tela-gestao-usuarios{
-    margin-bottom: 10px;
-}
-
 .sessao-conteudo-tela-gestao-usuarios:first-child{
     height: 90px;
 }
@@ -40,16 +36,4 @@
 
 main > div.sessao-conteudo-tela-gestao-usuarios:last-child{
     padding: 5px;
-}
-
-th, td {
-    padding: 0.4rem !important;
-    text-align: center;
-    vertical-align: middle !important;
-    flex-grow: 2;
-}
-
-tr{
-    display: flex;
-    max-height: 100px !important;
 }
