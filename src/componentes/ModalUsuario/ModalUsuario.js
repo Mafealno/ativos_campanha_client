@@ -23,7 +23,7 @@ function ModalUsuario(props) {
         usuario: { ...modeloValidacao, requerido: true, valorPadrao: "" },
         tipoUsuario: { ...modeloValidacao, requerido: true, valorPadrao: "Agente", valor: "Agente" },
         senha: { ...modeloValidacao, requerido: true, valorPadrao: "" },
-        repetirSenha: { ...modeloValidacao, requerido: true, valorPadrao: "" },
+        repetirSenha: { ...modeloValidacao, valorPadrao: "" },
         criadoPor: { ...modeloValidacao, requerido: false, valorPadrao: "", valor: "mafealno" },
         criadoEm: { ...modeloValidacao, requerido: false, valorPadrao: new Date() },
     })
@@ -67,7 +67,7 @@ function ModalUsuario(props) {
     const cadastrarUsuario = () => {
 
         if(dados.senha.valor !== dados.repetirSenha.valor){
-            showToast("sucesso", "As senhas não coincidem");
+            showToast("erro", "As senhas não coincidem");
             return;
         }
 
@@ -78,6 +78,23 @@ function ModalUsuario(props) {
         }
 
         usuarioUtils.cadastrarUsuario(usuarioUtils.montarUsuario(dados)).then((dados) => {
+            if(dados.success){
+                showToast("sucesso", dados.message);
+            }else{
+                showToast("erro", dados.message);
+            }
+        });
+    }
+
+    const atualizarUsuario = () => {
+
+        let houveErro = validacaoDadosUtils.exibirErroCampo(validacaoDadosUtils.validarDados(dados), false);
+
+        if(houveErro){
+            return
+        }
+
+        usuarioUtils.atualizarUsuario(usuarioUtils.montarUsuario(dados), dados.id.valor).then((dados) => {
             if(dados.success){
                 showToast("sucesso", dados.message);
             }else{
@@ -177,8 +194,8 @@ function ModalUsuario(props) {
             }
             conteudoRodape={
                 <>
-                {!dados.id.valor && <Botao estilo={"w-100-px btn-azul"} clique={()=> cadastrarUsuario()}>Salvar</Botao>}
-                {dados.id.valor && <Botao estilo={"w-100-px btn-amarelo"} clique={()=> ""}>Editar</Botao>}
+                    {!dados.id.valor && <Botao estilo={"w-100-px btn-azul"} clique={()=> cadastrarUsuario()}>Salvar</Botao>}
+                    {dados.id.valor && <Botao estilo={"w-100-px btn-amarelo"} clique={()=> atualizarUsuario()}>Editar</Botao>}
                 </>
             }
         />
