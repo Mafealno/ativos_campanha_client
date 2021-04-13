@@ -1,0 +1,75 @@
+#container-logar{
+    height: 400px;
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    display: grid;
+    grid-template-areas: 
+    "logar-titulo"
+    "logar-corpo";
+    grid-template-rows: 150px auto;
+    box-shadow: 0px 0px 15px 6px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0px 0px 15px 6px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 15px 6px rgba(0,0,0,0.3);
+}
+
+.container-corpo-logar{
+    width: 25rem;
+}
+
+#logar-titulo{
+    grid-area: logar-titulo;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    flex-grow: 1;
+    padding: 10px;
+    flex-direction: column;
+}
+
+#logar-titulo > img {
+    height: 100%;
+    width: 60%;
+}
+
+#logar-corpo{
+    grid-area: logar-corpo;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.titulo-aponta{
+    font-weight: bold;
+    font-size: 25px;
+    color: #105AAD;
+}
+
+#botao-logar{
+    color: white;
+    background-color: #105AAD;
+    border-color: #105AAD;
+    border-radius: 0 !important;
+    height: calc(1.5em + .75rem + 10px) !important;
+}
+
+#copyright-ativos{
+    color: #5b5d5e;
+}
+
+.botao-logar{
+    width: 200px;
+}
+
+.container-corpo-logar .row{
+    margin-bottom: 0 !important;
+}
+
+@media (min-width: 1200px){
+    #container-logar{
+        height: 30rem;
+        width: 40rem;
+    }
+}
