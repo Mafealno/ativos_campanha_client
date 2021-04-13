@@ -1,0 +1,39 @@
+#container-tela-historico-limpeza{
+    display: grid;
+    grid-template-areas: 
+    "cabecalho-tela-historico-limpeza"
+    "conteudo-tela-historico-limpeza";
+    grid-template-rows: 10% 90%;
+    height: 100%;
+    width: 100%;
+}
+
+#cabecalho-tela-historico-limpeza{
+    grid-area: cabecalho-tela-historico-limpeza;
+    display: flex;
+    align-items: center;
+}
+
+#conteudo-tela-historico-limpeza{
+    grid-area: conteudo-tela-historico-limpeza;
+}
+
+#cabecalho-tela-historico-limpeza > h2 {
+   font-weight: bold; 
+}
+
+.sessao-conteudo-tela-historico-limpeza{
+    margin-bottom: 10px;
+}
+
+.sessao-conteudo-tela-historico-limpeza:first-child{
+    height: 90px;
+}
+
+#conteudo-tela-historico-limpeza > div.d-flex {
+    height: 60px;
+}
+
+main > div.sessao-conteudo-tela-historico-limpeza:last-child{
+    padding: 5px;
+}
