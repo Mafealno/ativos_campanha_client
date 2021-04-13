@@ -1,0 +1,39 @@
+#container-tela-historico-arquivo-retorno{
+    display: grid;
+    grid-template-areas: 
+    "cabecalho-tela-historico-arquivo-retorno"
+    "conteudo-tela-historico-arquivo-retorno";
+    grid-template-rows: 10% 90%;
+    height: 100%;
+    width: 100%;
+}
+
+#cabecalho-tela-historico-arquivo-retorno{
+    grid-area: cabecalho-tela-historico-arquivo-retorno;
+    display: flex;
+    align-items: center;
+}
+
+#conteudo-tela-historico-arquivo-retorno{
+    grid-area: conteudo-tela-historico-arquivo-retorno;
+}
+
+#cabecalho-tela-historico-arquivo-retorno > h2 {
+   font-weight: bold; 
+}
+
+.sessao-conteudo-tela-historico-arquivo-retorno{
+    margin-bottom: 10px;
+}
+
+.sessao-conteudo-tela-historico-arquivo-retorno:first-child{
+    height: 90px;
+}
+
+#conteudo-tela-historico-arquivo-retorno > div.d-flex {
+    height: 60px;
+}
+
+main > div.sessao-conteudo-tela-gestao-campanhas:last-child{
+    padding: 5px;
+}
