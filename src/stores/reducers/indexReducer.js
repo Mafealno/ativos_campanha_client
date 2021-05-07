@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 
-import LoginReducer from "./LoginReducer.js";
+import MenuAplicativo from "./MenuAplicativo";
+import ModalUsuario from "./ModalUsuario";
 
 export default combineReducers({
-    LoginReducer,
+    MenuAplicativo,
+    ModalUsuario
 });

@@ -11,7 +11,6 @@ import EntradaDados from '../EntradaDados/EntradaDados';
 
 import logoAtivos from "../../img/logo-ativos.png";
 
-import * as loginActions from "../../stores/actions/LoginAction";
 import * as loginUtils from "../../utils/Login";
 import { showToast } from "../ToastControle/ToastControle";
 
@@ -37,7 +36,6 @@ function Logar(props) {
       if(dados.status != 200){
         showToast("erro", dados.message);
       }else{
-        props.SetUsuarioLogado(dados.user_data)
         historico.push("/dashboard/menu");
         showToast("sucesso", dados.message);
       }
@@ -95,9 +93,7 @@ function Logar(props) {
 
 const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = (dispatch) => ({
-  SetUsuarioLogado : (usuario) => dispatch(loginActions.SetUsuarioLogado(usuario)), 
-});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(
   mapStateToProps,

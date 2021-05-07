@@ -40,15 +40,13 @@
 
 #janela-suspensa div,
 footer {
+  
   margin: 10px 0px;
 }
 
-#janela-suspensa div:hover{
+#janela-suspensa *:hover{
   background-color: rgba(0, 0, 0, 0.03);
-}
-
-#janela-suspensa footer:hover{
-  background-color: rgba(0, 0, 0, 0.03);
+  cursor: pointer;
 }
 
 @media (min-height: 1200px){

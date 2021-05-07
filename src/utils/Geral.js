@@ -1,9 +1,16 @@
+/* eslint-disable eqeqeq */
 import dayjs from "dayjs";
 
 export const formatarData = (data) => {
     const dataDayJs = dayjs(data);
 
-    return formartarDoisDigitos(dataDayJs.day()) + "/" + formartarDoisDigitos(dataDayJs.month()) + "/" + dataDayJs.year()
+    return dataDayJs.format('DD/MM/YYYY');
+}
+
+export const formatarDataHora = (data) => {
+    const dataDayJs = dayjs(data).add(3, 'hour');
+
+    return dataDayJs.format('DD/MM/YYYY HH:mm');
 }
 
 export const formartarDoisDigitos = (valor) => {

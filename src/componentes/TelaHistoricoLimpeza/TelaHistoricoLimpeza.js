@@ -13,6 +13,7 @@ import * as limpezaUtils from "../../utils/Limpeza";
 import * as geralUtils from "../../utils/Geral";
 
 import "./TelaHistoricoLimpeza.css";
+import BotaoVoltarMenu from '../BotaoVoltarMenu/BotaoVoltarMenu';
 
 function TelaHistoricoLimpeza() {
     
@@ -65,7 +66,8 @@ function TelaHistoricoLimpeza() {
     return (
         <div id="container-tela-historico-limpeza">
             <header id="cabecalho-tela-historico-limpeza" className="p-10-px">
-                <h2>Histórico - Limpeza</h2>
+                <BotaoVoltarMenu />
+                <h2 className="ml-2">Histórico - Limpeza</h2>
             </header>
             <main id="conteudo-tela-historico-limpeza" className="p-10-px">
                 <div className="d-flex flex-wrap">

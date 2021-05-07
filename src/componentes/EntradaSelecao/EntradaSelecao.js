@@ -29,6 +29,7 @@ function EntradaSelecao(props) {
             name={props.nome}
             id={"campo-" + props.id}
             value={valorEntrada.valor}
+            disabled={props.apenasLeitura || false}
             onChange={(evento) => setValorEntrada({...valorEntrada, valor: evento.target.value})}
             onFocus={() => validacaoDadosUtils.removerErroCampo(props.id)}
             >

@@ -3,7 +3,7 @@
   grid-template-areas:
     "espaco-cabecalho"
     "espaco-conteudo";
-  grid-template-rows: 10% 90%;
+  grid-template-rows: 80px calc(100% - 80px);
   height: 100%;
   width: 100%;
 }
@@ -42,7 +42,6 @@
     grid-template-areas:
       "espaco-cabecalho espaco-cabecalho espaco-cabecalho"
       "espaco-conteudo espaco-conteudo espaco-conteudo"
-      "espaco-rodape espaco-rodape espaco-rodape";
   }
 
   #espaco-conteudo {

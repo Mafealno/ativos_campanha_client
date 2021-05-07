@@ -14,8 +14,8 @@ function Paginacao(props) {
         return totalRegistros / quantidadePagina;
     }
 
-    const mudarPagina = (data) => {
-        const paginaSelecionada = data.selected;
+    const mudarPagina = (dados) => {
+        const paginaSelecionada = dados.selected;
         props.paginaAtual(paginaSelecionada);
         props.setCarregando(true);
     }

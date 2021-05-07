@@ -13,6 +13,7 @@ import * as arquivoRetornoUtils from "../../utils/ArquivoRetorno";
 import * as geralUtils from "../../utils/Geral";
 
 import "./TelaHistoricoArquivoRetorno.css";
+import BotaoVoltarMenu from '../BotaoVoltarMenu/BotaoVoltarMenu';
 
 function TelaHistoricoArquivoRetorno() {
 
@@ -66,7 +67,8 @@ function TelaHistoricoArquivoRetorno() {
     return (
         <div id="container-tela-historico-arquivo-retorno">
             <header id="cabecalho-tela-historico-arquivo-retorno" className="p-10-px">
-                <h2>Histórico - Arquivo de Retorno</h2>
+                <BotaoVoltarMenu />
+                <h2 className="ml-2">Histórico - Arquivo de Retorno</h2>
             </header>
             <main id="conteudo-tela-historico-arquivo-retorno" className="p-10-px">
                 <div className="d-flex flex-wrap">

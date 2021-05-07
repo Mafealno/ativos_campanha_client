@@ -18,6 +18,7 @@ export const usuarioLogado = (exigeAutenticacao) => {
 
 export const deslogar = () => {
     Cookies.remove('X-JWT-Token');
+    localStorage.removeItem("usuarioLogado");
 }
 
 export const logar = async (usuario, senha) => {
@@ -28,6 +29,9 @@ export const logar = async (usuario, senha) => {
             message: "Usuário e/ou senha não preenchidos"
         }
     }
+
+    // 3 horas
+    const tempoExpiracaoCookieToken = 0.125;
 
     const requisicao = {
         id: "",
@@ -46,8 +50,15 @@ export const logar = async (usuario, senha) => {
             body: JSON.stringify(requisicao),
             })
             .then((resposta) => resposta.json()
-            .then(dados =>{
-                Cookies.set("X-JWT-Token", dados.data); 
+            .then(dados => {
+                if(dados.status == 200){
+                    Cookies.set("X-JWT-Token", dados.data.token, { expires: tempoExpiracaoCookieToken } ); 
+                    localStorage.setItem("usuarioLogado", JSON.stringify(dados.data.user_data));
+                }
                 return dados;
             }))
+}
+
+export const buscarUsuarioLogado = () => {
+   return JSON.parse(localStorage.getItem('usuarioLogado'))
 }

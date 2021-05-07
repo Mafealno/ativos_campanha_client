@@ -14,6 +14,8 @@ import * as campanhaUtils from "../../utils/Campanha";
 import * as geralUtils from "../../utils/Geral";
 
 import "./TelaGestaoCampanhas.css";
+import BotaoVoltarMenu from '../BotaoVoltarMenu/BotaoVoltarMenu';
+import { showToast } from '../ToastControle/ToastControle';
 
 function TelaGestaoCampanhas() {
 
@@ -23,26 +25,38 @@ function TelaGestaoCampanhas() {
     const [showModalConfirmacao, setShowModalConfirmacao] = useState(false);
     const [idLimpar, setIdLimpar] = useState(0);
     const [valorBuscaCampanha, setValorBuscaCampanha] = useState("");
+    const [list, setList] = useState([]);
     const [configPaginado, setConfigPaginado] = useState({
-        quantidePorPagina: 10,
-        paginaAtual: 1
+        quantidadePagina: 10,
+        paginaAtual: 0
     })
 
 
     useEffect(() => {
-        // campanhaUtils.buscarCampanhaPaginado(configPaginado.quantidePorPagina, configPaginado.paginaAtual).then((dados) => {
-        //     montaListaCampanhas(dados.data);
-        // });
+        campanhaUtils.buscarCampanhaPaginado(configPaginado.quantidadePagina, configPaginado.paginaAtual).then((dados) => {
+            setList(dados);
+        });
     }, [configPaginado.paginaAtual]);
 
-    const montaListaCampanhas = (listaCampanhas) => {
-        setListaCampanhaExibicao(listaCampanhas.map(item => {
+    useEffect(() => {
+        if(list){
+            if(list.success){
+                montaListaCampanhas(list.data);
+            }else{
+                showToast('erro', list.message);
+            }
+        }
+        setCarregando(false);
+    }, [list]);
+
+    const montaListaCampanhas = (dados) => {
+        setListaCampanhaExibicao(dados.campanhas.map(item => {
             return (
                 <Linha>
-                    <Coluna tamanho="120">{item.id}</Coluna>
-                    <Coluna tamanho="300">{item.nome + " " + item.sobrenome}</Coluna>
-                    <Coluna tamanho="100">{item.status}</Coluna>
-                    <Coluna tamanho="200">{geralUtils.formatarData(item.importado_em)}</Coluna>   
+                    <Coluna tamanho="120">{item.CampaignID}</Coluna>
+                    <Coluna tamanho="300">{item.CampaignName}</Coluna>
+                    <Coluna tamanho="100">{item.Status}</Coluna>
+                    <Coluna tamanho="200">{geralUtils.formatarData(item.ImportDate)}</Coluna>   
                     <Coluna>
                         <Botao estilo={"w-100-pc btn-verde"} clique={()=> ""}>
                             Arquivo de Retorno
@@ -57,26 +71,27 @@ function TelaGestaoCampanhas() {
             )
         }));
 
-        if(listaCampanhas.totalRegistros <= configPaginado.quantidePorPagina){
-            setPaginacaoExibicao(<></>)
-        }else{
-            setPaginacaoExibicao(
-                <Paginacao 
-                quantidadePagina={configPaginado.quantidePorPagina} 
-                totalRegistros={listaCampanhas.totalRegistros} 
-                paginaAtual={(paginaSelecionada) => setConfigPaginado({...configPaginado, paginaAtual: paginaSelecionada})}
-                setCarregando={(bool) => setCarregando(bool)}
-                />)
+        if(dados.primeiro_registro){
+            if(dados.primeiro_registro.Total_Registros <= configPaginado.quantidadePagina){
+                setPaginacaoExibicao(<></>);
+            }else{
+                setPaginacaoExibicao(
+                    <Paginacao 
+                    quantidadePagina={configPaginado.quantidadePagina} 
+                    totalRegistros={dados.primeiro_registro.Total_Registros} 
+                    paginaAtual={(paginaSelecionada) => setConfigPaginado({...configPaginado, paginaAtual: paginaSelecionada})}
+                    setCarregando={(bool) => setCarregando(bool)}
+                    />);
+            }
         }
-
-        setCarregando(false);
     }
 
     return (
         <>
           <div id="container-tela-gestao-campanhas">
             <header id="cabecalho-tela-gestao-campanhas" className="p-10-px">
-                <h2>Gestão de campanhas</h2>
+                <BotaoVoltarMenu />
+                <h2 className="ml-2">Gestão de campanhas</h2>
             </header>
             <main id="conteudo-tela-gestao-campanhas" className="p-10-px">
                 <div className="d-flex flex-wrap">
@@ -92,7 +107,7 @@ function TelaGestaoCampanhas() {
                                 valor={(valorEntrada)=> setValorBuscaCampanha(valorEntrada.valor)}/>
                             </div>
                             <div className="col">
-                                <Botao estilo={"w-100-pc btn-azul"} clique={()=> montaListaCampanhas(campanhaUtils.buscarCampanhaPorNome(valorBuscaCampanha))}>
+                                <Botao estilo={"w-100-pc btn-azul"} clique={()=> campanhaUtils.buscarCampanhaPorNomePaginado(valorBuscaCampanha, configPaginado.quantidadePagina).then(dados => setList(dados))}>
                                     Buscar
                                 </Botao>
                             </div>
@@ -109,9 +124,9 @@ function TelaGestaoCampanhas() {
                     <div>
                         <Tabela tamanho="450">
                             <Linha titulo={true}>
-                                <Coluna tamanho="100">ID</Coluna>
-                                <Coluna tamanho="350">Campanha</Coluna>
-                                <Coluna tamanho="150">Status</Coluna>
+                                <Coluna tamanho="120">ID</Coluna>
+                                <Coluna tamanho="300">Campanha</Coluna>
+                                <Coluna tamanho="100">Status</Coluna>
                                 <Coluna tamanho="200">Data de Importação</Coluna>
                                 <Coluna>Ações</Coluna>
                             </Linha>

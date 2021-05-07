@@ -10,7 +10,7 @@ function ItemMenuPrincipal(props) {
                 {props.titulo}
             </header>
             <div>
-                {props.children}
+                {props.descricao}
             </div>
             <footer>
                 <Link to={props.acaoExecutar}>

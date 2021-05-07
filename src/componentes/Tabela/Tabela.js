@@ -10,6 +10,7 @@ function Tabela(props) {
         if(props.tamanho){
             setTamanho({
                 height: props.tamanho + "px",
+                maxHeight: props.tamanho + "px"
             })
         }else{
             setTamanho({
@@ -19,7 +20,7 @@ function Tabela(props) {
     }, [])
 
     return (
-        <div className="container-tabela w-100-pc" style={tamanho}>
+        <div className={"container-tabela w-100-pc " + props.estilo} style={tamanho}>
             {props.children}
         </div>
     )

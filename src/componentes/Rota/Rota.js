@@ -3,12 +3,17 @@ import React from 'react'
 import { Route, Switch, Redirect } from "react-router-dom";
 import { Provider } from "react-redux";
 
-import store from "../../stores/store";
+import * as permissaoUtils from "../../utils/Permissao";
 import * as loginUtils from "../../utils/Login"
 
+import store from "../../stores/store";
+
 const RotaPrivada = ({...rest}) => {
+  
+
     return <Route {...rest} render={props => 
-        loginUtils.usuarioLogado(rest.exigeAutenticacao) ? <Provider store={store}><rest.componente {...props} /></Provider>
+        loginUtils.usuarioLogado(rest.exigeAutenticacao) && 
+        permissaoUtils.validaPermissao(rest.nome) ? <Provider store={store}><rest.componente {...props} /></Provider>
         :
         <Redirect to={{ pathname:"/login" }} />
     }

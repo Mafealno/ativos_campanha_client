@@ -1,0 +1,62 @@
+[
+    {
+        "nome" : "TelaGestaoUsuarios",
+        "tipo": "tela",
+        "usuarios" : ["Admin"], 
+        "visualizar" : true
+    },
+    {
+        "nome" : "TelaHistoricoArquivoRetorno",
+        "tipo": "tela",
+        "usuarios" : ["Admin"], 
+        "visualizar" : true
+    },
+    {
+        "nome" : "TelaGestaoCampanhas",
+        "tipo": "tela",
+        "usuarios" : ["Admin", "Agente"], 
+        "visualizar" : true
+    },
+    {
+        "nome" : "TelaHistoricoLimpeza",
+        "tipo": "tela",
+        "usuarios" : ["Admin"], 
+        "visualizar" : true
+    },
+    {
+        "nome" : "TelaSaneamentoMailing",
+        "tipo": "tela",
+        "usuarios" : [], 
+        "visualizar" : true
+    },
+    {
+        "nome" : "UrlGestaoUsuarios",
+        "tipo": "url",
+        "usuarios" : ["Admin"], 
+        "visualizar" : true
+    },
+    {
+        "nome" : "UrlHistoricoArquivoRetorno",
+        "tipo": "url",
+        "usuarios" : ["Admin"], 
+        "visualizar" : true
+    },
+    {
+        "nome" : "UrlGestaoCampanhas",
+        "tipo": "url",
+        "usuarios" : ["Admin", "Agente"], 
+        "visualizar" : true
+    },
+    {
+        "nome" : "UrlHistoricoLimpeza",
+        "tipo": "url",
+        "usuarios" : ["Admin"], 
+        "visualizar" : true
+    },
+    {
+        "nome" : "UrlSaneamentoMailing",
+        "tipo": "url",
+        "usuarios" : [], 
+        "visualizar" : true
+    }
+]

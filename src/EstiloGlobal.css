@@ -53,3 +53,27 @@ p{
 .margin-0{
   margin: 0 !important;
 }
+
+.centralizar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fade, .modal.fade .modal-dialog {
+  transition: none !important;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px white;
+  padding: 20px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #0064a3;
+  border: 3px white solid;
+}
