@@ -21,10 +21,9 @@ export const buscarUsuariosPaginado = async (quantidadePagina, paginaAtual) => {
         paginaAtual: paginaAtual
     }
 
-    return await backEndUtils.chamarBackEnd("POST", "/usuarios", requisicao).then((resposta) => {
-        if(resposta.status == 200) {
+    return await backEndUtils.chamarBackEnd("POST", "/usuarios/listar", requisicao).then((resposta) => {
+        if(resposta.status == 200) 
             return resposta.json().then((dados) => dados);
-        }
     })
 }
 
@@ -37,24 +36,19 @@ export const buscarUsuarioPorNomePagina = async (nomeUsuario, quantidadePagina) 
     }
 
     return await backEndUtils.chamarBackEnd("POST", "/usuarios/findbyname", requisicao).then((resposta) => {
-        if(resposta.status == 200){
+        if(resposta.status)
             return resposta.json().then(dados => dados)
-        }
     })
 }
 
 export const buscarUsuarioPorId = async (idUsuario) => {
     return await backEndUtils.chamarBackEnd("GET", "/usuarios/" + idUsuario).then((resposta) => {
-        if(resposta.status == 200){
+        if(resposta.status){
             return resposta.json().then(dados => {
-                if(dados.success){
+                if(dados.success)
                     return dados.data;
-                }else{
-                    return {
-                       _id: idUsuario,
-                       nome: ""
-                    }
-                }
+                else
+                    return { _id: idUsuario, nome: "" };
             })
         }
     })
@@ -63,9 +57,8 @@ export const buscarUsuarioPorId = async (idUsuario) => {
 export const cadastrarUsuario = async (usuario) => {
 
     return await backEndUtils.chamarBackEnd("POST", "/usuarios/", usuario).then((resposta) => {
-        if(resposta.status){
+        if(resposta.status)
             return resposta.json().then(dados => dados)
-        }
     })
 }
 
@@ -80,7 +73,7 @@ export const atualizarUsuario = async (usuario, id) => {
 
 export const atualizarSenhaUsuario = async (usuario, id) => {
 
-    return await backEndUtils.chamarBackEnd("PUT", "/usuarios/senha/" + id, usuario).then((resposta) => {
+    return await backEndUtils.chamarBackEnd("PUT", "/usuarios/" + id, usuario).then((resposta) => {
         if(resposta.status){
             return resposta.json().then(dados => dados)
         }

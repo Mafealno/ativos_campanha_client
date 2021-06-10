@@ -38,9 +38,7 @@ function TelaGestaoUsuarios(props) {
     })
 
     useEffect(() => {
-        usuariosUtils.buscarUsuariosPaginado(configPaginado.quantidadePagina, configPaginado.paginaAtual).then((dados) => {
-            setList(dados);
-        });
+        listarUsuarios();
     }, [configPaginado.paginaAtual, props.contador]);
 
     useEffect(() => {
@@ -65,6 +63,12 @@ function TelaGestaoUsuarios(props) {
             setDadosEdicao(dadosEdicao)
         }
         setShowModalUsuario(true);
+    }
+
+    const listarUsuarios = () => {
+        usuariosUtils.buscarUsuariosPaginado(configPaginado.quantidadePagina, configPaginado.paginaAtual).then((dados) => {
+            setList(dados);
+        });
     }
 
     const montarListaUsuarios = (dados) => {
@@ -114,6 +118,7 @@ function TelaGestaoUsuarios(props) {
 
         usuariosUtils.deletarUsuario(id).then((dados)=> {
             if(dados.success){
+                listarUsuarios();
                 showToast("sucesso", dados.message);
             }else{
                 showToast("erro", dados.message);
@@ -138,7 +143,8 @@ function TelaGestaoUsuarios(props) {
                                 tipo="text" 
                                 id="buscar-usuario" 
                                 nome="buscar-usuario" 
-                                descricao="Digite o nome do usuário" 
+                                descricao="Digite o nome do usuário"
+                                autoCompletar="off" 
                                 valor={(valorEntrada)=> setValorBuscaUsuario(valorEntrada.valor)}/>
                             </div>
                             <div className="col">

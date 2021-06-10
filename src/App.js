@@ -41,23 +41,19 @@ function App() {
         <main id="espaco-conteudo">
           <div id="espaco-esquerdo" className="p-10-px"></div>
           <div id="espaco-centro" className="p-10-px">
-            <Rota
-            caminho="/login"
-            exigeAutenticacao={false}
-            componente={()=> <Logar />} />
-            <Rota 
-            caminho="/dashboard/menu" 
-            exigeAutenticacao={true}
-            componente={()=> 
-            <>
-              <Permissao nome="TelaGestaoUsuarios" componente={() => <ItemMenuPrincipal titulo="Gestão de usuários" descricao="Criação de usuários do sistema" acaoExecutar={"/dashboard/usuarios"} /> } />
-              <Permissao nome="TelaGestaoCampanhas" componente={() => <ItemMenuPrincipal titulo="Gestão de Campanhas" descricao="Gerar arquivos de retorno e zerar campanhas" acaoExecutar={"/dashboard/campanhas"} /> } />
-              <Permissao nome="TelaHistoricoArquivoRetorno" componente={() => <ItemMenuPrincipal titulo="Historico de Arquivos de Retorno" descricao="Historico de geração de arquivo de retorno" acaoExecutar={"/dashboard/arquivo-retorno"} /> } />
-              <Permissao nome="TelaHistoricoLimpeza" componente={() => <ItemMenuPrincipal titulo="Historico de Limpeza" descricao="Historico de limpeza de Campanhas" acaoExecutar={"/dashboard/limpeza"} /> } />
-              <Permissao nome="TelaSaneamentoMailing" componente={() => <ItemMenuPrincipal titulo="Saneamento de mailing" descricao="Regras de Saneamento do processo de importação das campanhas" acaoExecutar={"/dashboard/saneamento"} /> } />
-            </>
-            }   
-            />
+            <Rota caminho="/login" exigeAutenticacao={false} componente={()=> <Logar />} />
+            <div id="container-menu-principal">
+              <Rota caminho="/dashboard/menu" exigeAutenticacao={true} componente={()=> 
+              <>
+                <Permissao nome="TelaGestaoUsuarios" componente={() => <ItemMenuPrincipal titulo="Gestão de usuários" descricao="Criação de usuários do sistema" acaoExecutar={"/dashboard/usuarios"} /> } />
+                <Permissao nome="TelaGestaoCampanhas" componente={() => <ItemMenuPrincipal titulo="Gestão de Campanhas" descricao="Gerar arquivos de retorno e zerar campanhas" acaoExecutar={"/dashboard/campanhas"} /> } />
+                <Permissao nome="TelaHistoricoArquivoRetorno" componente={() => <ItemMenuPrincipal titulo="Historico de Arquivos de Retorno" descricao="Historico de geração de arquivo de retorno" acaoExecutar={"/dashboard/arquivo-retorno"} /> } />
+                <Permissao nome="TelaHistoricoLimpeza" componente={() => <ItemMenuPrincipal titulo="Historico de Limpeza" descricao="Historico de limpeza de Campanhas" acaoExecutar={"/dashboard/limpeza"} /> } />
+                <Permissao nome="TelaSaneamentoMailing" componente={() => <ItemMenuPrincipal titulo="Saneamento de mailing" descricao="Regras de Saneamento do processo de importação das campanhas" acaoExecutar={"/dashboard/saneamento"} /> } />
+              </>
+              }   
+              />
+            </div>
             <section className="w-100-pc">
               <Rota nome="UrlGestaoUsuarios" caminho="/dashboard/usuarios" exigeAutenticacao={true} componente={() => <TelaGestaoUsuarios/>} /> 
               <Rota nome="UrlGestaoCampanhas" caminho="/dashboard/campanhas" exigeAutenticacao={true} componente={() => <TelaGestaoCampanhas />} />  

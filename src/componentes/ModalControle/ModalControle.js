@@ -20,7 +20,7 @@ function ModalControle(props) {
         onHide={()=> props.fecharModal()}
         centered
       >
-        <ModalHeader className={props.estiloModalCabecalho}>
+        {props.tituloModal && <ModalHeader className={props.estiloModalCabecalho}>
           <ModalTitle className={props.estiloTitulo}>{props.tituloModal}</ModalTitle>
           {props.conteudoCabecalho || (
             <div className="fechar-modal">
@@ -29,7 +29,7 @@ function ModalControle(props) {
               </a>
             </div>
           )}
-        </ModalHeader>
+        </ModalHeader>}
         <ModalBody className={props.estiloModalCorpo}>
           {props.conteudoCorpo}
         </ModalBody>

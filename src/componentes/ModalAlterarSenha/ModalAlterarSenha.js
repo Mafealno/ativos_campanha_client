@@ -12,21 +12,28 @@ import { deslogar } from "../../utils/Login";
 import { showToast } from "../ToastControle/ToastControle";
 import { buscarUsuarioLogado } from "../../utils/Login";
 
+
+import "./ModalAlterarSenha.css";
+
 function ModalAlterarSenha(props) {
 
     const modeloValidacao = validacaoDadosUtils.dadosCampo;
-
-    const [usuarioLogado, setUsuarioLogado] = useState({});
     const [dados, setDados] = useState({
         id: { ...modeloValidacao, valorPadrao: "" },
         senha: { ...modeloValidacao, requerido: true, valorPadrao: "" },
         repetirSenha: { ...modeloValidacao, requerido: true, valorPadrao: "" },
+        usuario: { ...modeloValidacao, valorPadrao: "" },
+        nome: { ...modeloValidacao, valorPadrao: "" },
+        sobrenome: { ...modeloValidacao, valorPadrao: "" },
+        email: { ...modeloValidacao, valorPadrao: "" },
+        tipoUsuario: { ...modeloValidacao, valorPadrao: "" },
+        criadoPor: { ...modeloValidacao, valorPadrao: undefined },
+        criadoEm: { ...modeloValidacao, valorPadrao: undefined },
     })
 
     useEffect(() => {
-        setUsuarioLogado(buscarUsuarioLogado());
-        if(props.show && props.dados){
-            preencherCampos(usuarioLogado);
+        if(props.show){
+            preencherCampos(buscarUsuarioLogado());
         }else{
             limparCampos();
         }
@@ -74,7 +81,7 @@ function ModalAlterarSenha(props) {
     return (
         <ModalControle 
             {...props}
-            tituloModal={"Alterar senha"}
+            //tituloModal={"Alterar senha"}
             tamanhoModal="sm"
             conteudoCorpo={
                 <>
@@ -82,9 +89,11 @@ function ModalAlterarSenha(props) {
                         <div className="col">
                             <EntradaDados 
                             tipo="password" 
+                            estilo="text-center"
                             id="senha" 
                             nome="senha" 
                             descricao="Senha"
+                            autoCompletar="new-password"
                             acaoAcionar={()=> ""}
                             valorInicial={dados.senha.valor}
                             valor={(valorEntrada)=> setDados({...dados, senha : { ...dados.senha, valor: valorEntrada.valor}})}/>
@@ -94,9 +103,11 @@ function ModalAlterarSenha(props) {
                         <div className="col">
                             <EntradaDados 
                             tipo="password" 
+                            estilo="text-center"
                             id="repetirSenha" 
                             nome="repetirSenha" 
                             descricao="Repita a senha"
+                            autoCompletar="new-password"
                             acaoAcionar={()=> ""}
                             valor={(valorEntrada)=> setDados({...dados, repetirSenha: { ...dados.repetirSenha, valor: valorEntrada.valor}})}/>
                         </div>
@@ -104,9 +115,9 @@ function ModalAlterarSenha(props) {
                 </>
             }
             conteudoRodape={
-                <>
-                    <Botao estilo={"w-100-px btn-amarelo"} clique={()=> atualizarSenhaUsuario()}>Editar</Botao>
-                </>
+                <div className="rodape-modal-alterar-senha">
+                    <Botao estilo={"w-100-px btn-azul"} clique={()=> atualizarSenhaUsuario()}>Salvar</Botao>
+                </div>
             }
         />
     )

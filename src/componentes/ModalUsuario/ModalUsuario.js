@@ -189,6 +189,7 @@ function ModalUsuario(props) {
                                 id="senha" 
                                 nome="senha" 
                                 descricao="Senha"
+                                autoCompletar="new-password"
                                 acaoAcionar={()=> ""}
                                 valorInicial={dados.senha.valor}
                                 valor={(valorEntrada)=> setDados({...dados, senha : { ...dados.senha, valor: valorEntrada.valor}})}/>
@@ -200,6 +201,7 @@ function ModalUsuario(props) {
                                     id="repetirSenha" 
                                     nome="repetirSenha" 
                                     descricao="Repita a senha"
+                                    autoCompletar="new-password"
                                     acaoAcionar={()=> ""}
                                     valor={(valorEntrada)=> setDados({...dados, repetirSenha: { ...dados.repetirSenha, valor: valorEntrada.valor}})}/>
                                 </div>

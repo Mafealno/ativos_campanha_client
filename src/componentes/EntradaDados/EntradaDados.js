@@ -38,6 +38,7 @@ function EntradaDados(props) {
             className={"estilo-padrao " + props.estilo || ""}
             placeholder={props.descricao}
             value={valorEntrada.valor}
+            autoComplete={props.autoCompletar}
             disabled={props.apenasLeitura || false}
             onChange={(evento)=> setValorEntrada({...valorEntrada, valor: evento.target.value})}
             onKeyDown={(evento)=> pressionarEnter(evento, props.acaoAcionar)}

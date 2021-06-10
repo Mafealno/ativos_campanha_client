@@ -8,6 +8,14 @@
   width: 100%;
 }
 
+#container-menu-principal{
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  overflow-y: auto;
+}
+
 #espaco-conteudo {
   grid-area: espaco-conteudo;
   display: grid;

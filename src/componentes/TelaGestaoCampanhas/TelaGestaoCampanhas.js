@@ -36,24 +36,25 @@ function TelaGestaoCampanhas() {
         campanhaUtils.buscarCampanhaPaginado(configPaginado.quantidadePagina, configPaginado.paginaAtual).then((dados) => {
             setList(dados);
         });
+
     }, [configPaginado.paginaAtual]);
 
     useEffect(() => {
         if(list){
             if(list.success){
-                montaListaCampanhas(list.data);
+                montaListaCampanhas(list.data)
             }else{
                 showToast('erro', list.message);
             }
+            setCarregando(false)
         }
-        setCarregando(false);
     }, [list]);
 
     const montaListaCampanhas = (dados) => {
         setListaCampanhaExibicao(dados.campanhas.map(item => {
             return (
                 <Linha>
-                    <Coluna tamanho="120">{item.CampaignID}</Coluna>
+                    <Coluna tamanho="80">{item.CampaignID}</Coluna>
                     <Coluna tamanho="300">{item.CampaignName}</Coluna>
                     <Coluna tamanho="100">{item.Status}</Coluna>
                     <Coluna tamanho="200">{geralUtils.formatarData(item.ImportDate)}</Coluna>   
@@ -124,14 +125,14 @@ function TelaGestaoCampanhas() {
                     <div>
                         <Tabela tamanho="450">
                             <Linha titulo={true}>
-                                <Coluna tamanho="120">ID</Coluna>
+                                <Coluna tamanho="80">ID</Coluna>
                                 <Coluna tamanho="300">Campanha</Coluna>
                                 <Coluna tamanho="100">Status</Coluna>
                                 <Coluna tamanho="200">Data de Importação</Coluna>
                                 <Coluna>Ações</Coluna>
                             </Linha>
-                            {!carregando && listaCampanhasExibicao}
                             {carregando && <Carregando />}
+                            {!carregando && listaCampanhasExibicao}
                         </Tabela>
                     </div>
                     {paginacaoExibicao}
