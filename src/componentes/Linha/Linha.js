@@ -11,7 +11,7 @@ function Linha(props) {
         )
     }else{
         return (
-            <div className={"container-linha"}>
+            <div className={"container-linha efeitoTransicao " + props.estilo}>
                 {props.children}
             </div>
         )

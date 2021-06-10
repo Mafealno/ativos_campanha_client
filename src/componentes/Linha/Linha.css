@@ -10,3 +10,56 @@
     max-height: 40px !important;
     border: 0.5px solid #212529;
 }
+
+.efeitoTransicao{
+    animation: efeitoTransicao ease 0.5s;
+   -webkit-animation: efeitoTransicao ease 0.5s;
+   -moz-animation: efeitoTransicao ease 0.5s;
+   -o-animation: efeitoTransicao ease 0.5s;
+   -ms-animation: efeitoTransicao ease 0.5s;
+ }
+ 
+ @keyframes efeitoTransicao {
+     0% {
+       opacity:0;
+     }
+     100% {
+       opacity:1;
+     }
+   }
+   
+   @-moz-keyframes efeitoTransicao {
+     0% {
+       opacity:0;
+     }
+     100% {
+       opacity:1;
+     }
+   }
+   
+   @-webkit-keyframes efeitoTransicao {
+     0% {
+       opacity:0;
+     }
+     100% {
+       opacity:1;
+     }
+   }
+   
+   @-o-keyframes efeitoTransicao {
+     0% {
+       opacity:0;
+     }
+     100% {
+       opacity:1;
+     }
+   }
+   
+   @-ms-keyframes efeitoTransicao {
+     0% {
+       opacity:0;
+     }
+     100% {
+       opacity:1;
+   }
+ }
