@@ -1,0 +1,38 @@
+#container-tela-gerenciamento-limites{
+    display: grid;
+    grid-template-areas: 
+    "cabecalho-tela-gerenciamento-limites"
+    "conteudo-tela-gerenciamento-limites";
+    grid-template-rows: 10% 90%;
+    height: 100%;
+    width: 100%;
+}
+
+#cabecalho-tela-gerenciamento-limites{
+    grid-area: cabecalho-tela-gerenciamento-limites;
+    display: flex;
+    align-items: center;
+}
+
+#conteudo-tela-gerenciamento-limites{
+    grid-area: conteudo-tela-gerenciamento-limites;
+}
+
+#cabecalho-tela-gerenciamento-limites > h2 {
+    font-weight: bold; 
+ }
+ 
+ .sessao-conteudo-tela-gerenciamento-limites{
+     margin-bottom: 10px;
+     padding-top: 60px;
+ }
+
+ 
+ #conteudo-tela-gerenciamento-limites > div.d-flex {
+     height: 60px;
+ }
+ 
+ main > div.sessao-conteudo-tela-gerenciamento-limites:last-child{
+     padding: 5px;
+ }
+ 
