@@ -10,6 +10,7 @@
 
 #container-menu-principal{
   height: 100%;
+  max-height: 610px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -44,7 +45,6 @@
   display: none;
 }
 
-
 @media (min-width: 1200px) {
   #container-app {
     grid-template-areas:
@@ -54,7 +54,7 @@
 
   #espaco-conteudo {
     grid-template-areas: "espaco-esquerdo espaco-centro espaco-direita";
-    grid-template-columns: 15% 70% 15%;
+    grid-template-columns: 13% 74% 13%;
   }
 
   #espaco-centro {
@@ -67,5 +67,17 @@
 
   #espaco-direita {
     display: block;
+  }
+}
+
+@media (max-height: 676px) {
+  #container-menu-principal{
+    max-height: 550px;
+  }
+}
+
+@media (min-height: 1000px) {
+  #container-menu-principal{
+    max-height: 1200px;
   }
 }

@@ -2,8 +2,12 @@
   background: #07bc0c;
 }
 .Toastify__toast--warning {
-  background: #c3cf08 !important;
+  background: #0064a3 !important;
 }
 .Toastify__toast--error {
   background: #b81e10 !important;
+}
+
+.Toastify__close-button{
+  align-self: center !important;
 }
