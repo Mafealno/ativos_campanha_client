@@ -10,6 +10,7 @@ import TelaGestaoUsuarios from "./componentes/TelaGestaoUsuarios/TelaGestaoUsuar
 import TelaGestaoCampanhas from "./componentes/TelaGestaoCampanhas/TelaGestaoCampanhas";
 import TelaHistoricoArquivoRetorno from "./componentes/TelaHistoricoArquivoRetorno/TelaHistoricoArquivoRetorno";
 import TelaHistoricoLimpeza from "./componentes/TelaHistoricoLimpeza/TelaHistoricoLimpeza";
+import TelaGerenciamentoLimites from './componentes/TelaGerenciamentoLimites/TelaGerenciamentoLimites';
 import ToastControle from "./componentes/ToastControle/ToastControle";
 
 import './App.css';
@@ -50,6 +51,7 @@ function App() {
                 <Permissao nome="TelaHistoricoArquivoRetorno" componente={() => <ItemMenuPrincipal titulo="Historico de Arquivos de Retorno" descricao="Historico de geração de arquivo de retorno" acaoExecutar={"/dashboard/arquivo-retorno"} /> } />
                 <Permissao nome="TelaHistoricoLimpeza" componente={() => <ItemMenuPrincipal titulo="Historico de Limpeza" descricao="Historico de limpeza de Campanhas" acaoExecutar={"/dashboard/limpeza"} /> } />
                 <Permissao nome="TelaSaneamentoMailing" componente={() => <ItemMenuPrincipal titulo="Saneamento de mailing" descricao="Regras de Saneamento do processo de importação das campanhas" acaoExecutar={"/dashboard/saneamento"} /> } />
+                <Permissao nome="TelaGerenciamentoLimites" componente={() => <ItemMenuPrincipal titulo="Gerenciamento de Limites" descricao="Editar valores de limites" acaoExecutar={"/dashboard/limites"} /> } />
               </>
               }   
               />
@@ -60,6 +62,7 @@ function App() {
               <Rota nome="UrlHistoricoArquivoRetorno" caminho="/dashboard/arquivo-retorno" exigeAutenticacao={true} componente={() => <TelaHistoricoArquivoRetorno />} />  
               <Rota nome="UrlHistoricoLimpeza" caminho="/dashboard/limpeza" exigeAutenticacao={true} componente={() => <TelaHistoricoLimpeza />} />  
               <Rota nome="UrlSaneamentoMailing" caminho="/dashboard/saneamento" exigeAutenticacao={true} componente={() => <div>saneamento</div>} />  
+              <Rota nome="UrlGerenciamentoLimites" caminho="/dashboard/limites" exigeAutenticacao={true} componente={() => <TelaGerenciamentoLimites />} />  
             </section>    
           </div>
           <div id="espaco-direita" className="p-10-px"></div>

@@ -81,7 +81,6 @@ function ModalAlterarSenha(props) {
     return (
         <ModalControle 
             {...props}
-            //tituloModal={"Alterar senha"}
             tamanhoModal="sm"
             conteudoCorpo={
                 <>

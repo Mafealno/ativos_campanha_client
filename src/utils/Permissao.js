@@ -14,7 +14,7 @@ export const buscarPermissao = (nome) => {
     })
 } 
 
-export const validaPermissao = (nome, ) =>{
+export const validaPermissao = (nome) =>{
     const permissao = buscarPermissao(nome);
     const usuarioLogado = buscarUsuarioLogado();
     

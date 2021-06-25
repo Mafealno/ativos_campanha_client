@@ -1,4 +1,4 @@
-#container-item-menu-principal {
+.container-item-menu-principal {
   display: flex;
   flex-direction: column;
   height: 250px;
@@ -8,9 +8,10 @@
   margin: 7px;
 }
 
-#container-item-menu-principal header {
+
+
+.container-item-menu-principal header {
   display: flex;
-  justify-content: center;
   justify-content: center;
   align-items: center;
   height: 70px;
@@ -21,7 +22,7 @@
   background-color: rgba(0, 0, 0, 0.03);
 }
 
-#container-item-menu-principal div {
+.container-item-menu-principal div {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -31,7 +32,7 @@
   flex-grow: 1;
 }
 
-#container-item-menu-principal footer {
+.container-item-menu-principal footer {
   padding: 5px 10px;
   height: 50px;
 }

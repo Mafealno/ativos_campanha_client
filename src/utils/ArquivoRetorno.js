@@ -13,16 +13,16 @@ export const buscarArquivoRetornoPaginado = async (quantidadePagina, paginaAtual
         if(resposta.status == 200) {
             return resposta.json().then((dados) => {
                 if(dados.data.length > 0){
-                    return dados.data.map((item) => {
+                    dados.data = dados.data.map((item) => {
                         const usuario = usuarioUtils.buscarUsuarioPorId(item.id_usuario).then(dados => dados);
                         return {
                             ...item,
                             usuario: usuario
                         };
-                    })
-                }else{
-                    return [];
+                    });
                 }
+
+                return dados;
             });
         }
     })

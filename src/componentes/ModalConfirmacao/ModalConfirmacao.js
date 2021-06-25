@@ -5,7 +5,7 @@ import Botao from "../Botao/Botao";
 
 import "./ModalConfirmacao.css";
 
-export default function ModalConfirm(props) {
+function ModalConfirmacao(props) {
   return (
     <div>
       <>
@@ -40,3 +40,5 @@ export default function ModalConfirm(props) {
     </div>
   );
 }
+
+export default ModalConfirmacao;
