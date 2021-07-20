@@ -1,78 +1,121 @@
-import React, { useState, useEffect } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 
 import ModalControle from "../ModalControle/ModalControle";
 import EntradaDados from "../EntradaDados/EntradaDados";
 import Botao from "../Botao/Botao";
 
+import * as contadorActions from "../../stores/actions/Contador";
 import * as validacaoDadosUtils from "../../utils/ValidacaoDados";
+import * as limiteUtils from "../../utils/Limites";
+import { showToast } from "../ToastControle/ToastControle";
 
 function ModalLimite(props) {
+  const modeloValidacao = validacaoDadosUtils.dadosCampo;
 
-    const modeloValidacao = validacaoDadosUtils.dadosCampo;
+  const [dados, setDados] = useState({
+    id: { ...modeloValidacao, requerido: true, valorPadrao: "" },
+    descricao: { ...modeloValidacao, requerido: true, valorPadrao: "" },
+    valor: { ...modeloValidacao, requerido: true, valorPadrao: 0 },
+  });
 
-    const [usuarioLogado, setUsuarioLogado] = useState({});
-    const [dados, setDados] = useState({
-        resultadoChamada: { ...modeloValidacao, requerido: true, valorPadrao: "" },
-        descricaoResultado: { ...modeloValidacao, requerido: true, valorPadrao: "" },
-        limite: { ...modeloValidacao, requerido: true, valorPadrao: 0 },
-    })
-    return (
-        <ModalControle 
-            {...props}
-            tituloModal={"Editar Limite"}
-            tamanhoModal="sm"
-            conteudoCorpo={
-                <>
-                    <div className="row">
-                        <div className="col">
-                            <EntradaDados 
-                            tipo="text" 
-                            id="resultadoChamada" 
-                            nome="resultadoChamada" 
-                            apenasLeitura={true}
-                            descricao="Resultado da chamada"
-                            acaoAcionar={()=> ""}
-                            valorInicial={dados.resultadoChamada.valor}
-                            valor={(valorEntrada)=> setDados({...dados, resultadoChamada : { ...dados.resultadoChamada, valor: valorEntrada.valor}})}
-                            />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col">
-                            <EntradaDados 
-                            tipo="text" 
-                            id="descricaoResultado" 
-                            nome="descricaoResultado"
-                            apenasLeitura={true}
-                            descricao="Descrição do Resultado"
-                            acaoAcionar={()=> ""}
-                            valorInicial={dados.descricaoResultado.valor}
-                            valor={(valorEntrada)=> setDados({...dados, descricaoResultado: { ...dados.descricaoResultado, valor: valorEntrada.valor}})}
-                            />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col">
-                            <EntradaDados 
-                            tipo="number" 
-                            id="limite" 
-                            nome="limite" 
-                            descricao="Limite"
-                            acaoAcionar={()=> ""}
-                            valorInicial={dados.limite.valor}
-                            valor={(valorEntrada)=> setDados({...dados, limite : { ...dados.limite, valor: valorEntrada.valor}})}
-                            />
-                        </div>
-                    </div>
-                </>
-            }
-            conteudoRodape={
-                <>
-                    <Botao estilo={"w-100-px btn-amarelo"} clique={()=> ""}>Editar</Botao>
-                </>
-            }
-        />
-    )
+  useEffect(() => {
+    if (props.show && props.dados) {
+      preencherCampos(props.dados);
+    } else {
+      limparCampos();
+    }
+  }, [props.show]);
+
+  const preencherCampos = (dadosLimite) => {
+    setDados({
+      ...dados,
+      id: { ...dados.id, valor: dadosLimite._id },
+      descricao: { ...dados.descricao, valor: dadosLimite.descricao },
+      valor: { ...dados.valor, valor: dadosLimite.valor },
+    });
+  };
+
+  const limparCampos = () => {
+    setDados({
+      ...dados,
+      id: { ...dados.id, valor: dados.id.valorPadrao },
+      descricao: { ...dados.descricao, valor: dados.descricao.valorPadrao },
+      valor: { ...dados.valor, valor: dados.valor.valorPadrao },
+    });
+  };
+
+  const atualizarLimite = () => {
+
+    let houveErro = validacaoDadosUtils.exibirErroCampo(validacaoDadosUtils.validarDados(dados), false);
+
+    if(houveErro){
+        return
+    }
+
+    limiteUtils.atualizarLimite(dados).then((dados) => {
+        if(dados.success){
+            props.setContador(props.contador);
+            showToast("sucesso", dados.message);
+            props.fecharModal();
+        }else{
+            showToast("erro", dados.message);
+        }
+    });
 }
 
-export default ModalLimite;
+  return (
+    <ModalControle
+      {...props}
+      tituloModal={"Editar Limite"}
+      tamanhoModal="md"
+      conteudoCorpo={
+        <>
+          <div className="row">
+            <div className="col d-flex justify-content-center align-items-center">
+              <label>{dados.descricao.valor ? dados.descricao.valor.charAt(0).toUpperCase() + dados.descricao.valor.slice(1) : ""}</label>
+            </div>
+            <div className="col-3">
+              <EntradaDados
+                tipo="number"
+                id="valor"
+                estilo="text-center"
+                nome="valor"
+                descricao="Limite"
+                acaoAcionar={() => ""}
+                valorInicial={dados.valor.valor}
+                valor={(valorEntrada) =>
+                  setDados({
+                    ...dados,
+                    valor: { ...dados.valor, valor: valorEntrada.valor },
+                  })
+                }
+              />
+            </div>
+          </div>
+        </>
+      }
+      conteudoRodape={
+        <>
+          <Botao estilo={"w-100-px btn-verde"} clique={() => atualizarLimite()}>
+            Salvar
+          </Botao>
+        </>
+      }
+    />
+  );
+}
+
+const mapStateToProps = (state) => ({
+    contador: state.Contador.contador,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setContador : (contador) => dispatch(contadorActions.setContador(contador)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ModalLimite);
