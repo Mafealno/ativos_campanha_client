@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 
 import MenuAplicativo from "./MenuAplicativo";
-import ModalUsuario from "./ModalUsuario";
+import Contador from "./Contador";
 
 export default combineReducers({
     MenuAplicativo,
-    ModalUsuario
+    Contador
 });
