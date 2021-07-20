@@ -3,20 +3,20 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import EntradaDados from "../EntradaDados/EntradaDados";
-import Botao from "../Botao/Botao";
-import Paginacao from "../Paginacao/Paginacao";
-import Carregando from "../Carregando/Carregando";
-import Tabela from "../Tabela/Tabela";
-import Linha from "../Linha/Linha";
-import Coluna from "../Coluna/Coluna";
-import ModalUsuario from "../ModalUsuario/ModalUsuario";
-import ModalConfirmacao from "../ModalConfirmacao/ModalConfirmacao";
-import BotaoVoltarMenu from "../BotaoVoltarMenu/BotaoVoltarMenu";
+import EntradaDados from "../../componentes/EntradaDados/EntradaDados";
+import Botao from "../../componentes/Botao/Botao";
+import Paginacao from "../../componentes/Paginacao/Paginacao";
+import Carregando from "../../componentes/Carregando/Carregando";
+import Tabela from "../../componentes/Tabela/Tabela";
+import Linha from "../../componentes/Linha/Linha";
+import Coluna from "../../componentes/Coluna/Coluna";
+import ModalUsuario from "../../componentes/ModalUsuario/ModalUsuario";
+import ModalConfirmacao from "../../componentes/ModalConfirmacao/ModalConfirmacao";
+import BotaoVoltarMenu from "../../componentes/BotaoVoltarMenu/BotaoVoltarMenu";
+import { showToast } from "../../componentes/ToastControle/ToastControle";
 
 import * as usuariosUtils from "../../utils/Usuarios";
 import * as geralUtils from "../../utils/Geral";
-import { showToast } from "../ToastControle/ToastControle";
 import { buscarUsuarioLogado } from "../../utils/Login";
 
 import "./TelaGestaoUsuarios.css";

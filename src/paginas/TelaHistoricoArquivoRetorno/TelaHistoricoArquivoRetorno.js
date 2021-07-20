@@ -2,18 +2,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 
-import EntradaDados from "../EntradaDados/EntradaDados";
-import Botao from "../Botao/Botao";
-import Tabela from "../Tabela/Tabela";
-import Linha from "../Linha/Linha";
-import Coluna from "../Coluna/Coluna";
-import Paginacao from "../Paginacao/Paginacao";
-import Carregando from "../Carregando/Carregando";
-import BotaoVoltarMenu from "../BotaoVoltarMenu/BotaoVoltarMenu";
+import EntradaDados from "../../componentes/EntradaDados/EntradaDados";
+import Botao from "../../componentes/Botao/Botao";
+import Paginacao from "../../componentes/Paginacao/Paginacao";
+import Carregando from "../../componentes/Carregando/Carregando";
+import Tabela from "../../componentes/Tabela/Tabela";
+import Linha from "../../componentes/Linha/Linha";
+import Coluna from "../../componentes/Coluna/Coluna";
+import BotaoVoltarMenu from "../../componentes/BotaoVoltarMenu/BotaoVoltarMenu";
+import { showToast } from "../../componentes/ToastControle/ToastControle";
+
 
 import * as arquivoRetornoUtils from "../../utils/ArquivoRetorno";
 import * as geralUtils from "../../utils/Geral";
-import { showToast } from "../ToastControle/ToastControle";
 
 import "./TelaHistoricoArquivoRetorno.css";
 
