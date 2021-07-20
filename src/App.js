@@ -51,7 +51,7 @@ function App() {
                 <Permissao nome="TelaHistoricoArquivoRetorno" componente={() => <ItemMenuPrincipal titulo="Historico de Arquivos de Retorno" descricao="Historico de geração de arquivo de retorno" acaoExecutar={"/dashboard/arquivo-retorno"} /> } />
                 <Permissao nome="TelaHistoricoLimpeza" componente={() => <ItemMenuPrincipal titulo="Historico de Limpeza" descricao="Historico de limpeza de Campanhas" acaoExecutar={"/dashboard/limpeza"} /> } />
                 <Permissao nome="TelaSaneamentoMailing" componente={() => <ItemMenuPrincipal titulo="Saneamento de mailing" descricao="Regras de Saneamento do processo de importação das campanhas" acaoExecutar={"/dashboard/saneamento"} /> } />
-                <Permissao nome="TelaGerenciamentoLimites" componente={() => <ItemMenuPrincipal titulo="Gerenciamento de Limites" descricao="Editar valores de limites" acaoExecutar={"/dashboard/limites"} /> } />
+                <Permissao nome="TelaGerenciamentoLimites" componente={() => <ItemMenuPrincipal titulo="Gerenciamento de Limites" descricao="Editar valores dos limites" acaoExecutar={"/dashboard/limites"} /> } />
               </>
               }   
               />
