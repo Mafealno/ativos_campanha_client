@@ -164,7 +164,7 @@ function TelaGestaoCampanhas() {
           </div>
           <section className="sessao-conteudo-tela-gestao-campanhas">
             <div>
-              <Tabela tamanho="450">
+              <Tabela tamanho="370">
                 <Linha titulo={true}>
                   <Coluna tamanho="80">ID</Coluna>
                   <Coluna tamanho="300">Campanha</Coluna>

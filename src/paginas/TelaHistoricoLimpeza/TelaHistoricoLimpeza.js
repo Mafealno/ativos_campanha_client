@@ -9,17 +9,16 @@ import Linha from "../Linha/Linha";
 import Coluna from "../Coluna/Coluna";
 import Paginacao from "../Paginacao/Paginacao";
 import Carregando from "../Carregando/Carregando";
-import BotaoVoltarMenu from "../BotaoVoltarMenu/BotaoVoltarMenu";
 
-import * as arquivoRetornoUtils from "../../utils/ArquivoRetorno";
+import * as limpezaUtils from "../../utils/Limpeza";
 import * as geralUtils from "../../utils/Geral";
 import { showToast } from "../ToastControle/ToastControle";
 
-import "./TelaHistoricoArquivoRetorno.css";
+import "./TelaHistoricoLimpeza.css";
+import BotaoVoltarMenu from "../BotaoVoltarMenu/BotaoVoltarMenu";
 
-function TelaHistoricoArquivoRetorno() {
-  const [listaArquivoRetornoExibicao, setListaArquivoRetornoExibicao] =
-    useState([]);
+function TelaHistoricoLimpeza() {
+  const [listaLimpezaExibicao, setListaLimpezaExibicao] = useState([]);
   const [list, setList] = useState([]);
   const [qtdeRegistrosTabela, setQtdeRegistrosTabela] = useState(0);
   const [paginacaoExibicao, setPaginacaoExibicao] = useState([]);
@@ -31,20 +30,19 @@ function TelaHistoricoArquivoRetorno() {
   });
 
   useEffect(() => {
-    listarArquivoRetorno();
+    listarHistoricoLimpeza();
   }, [configPaginado.paginaAtual]);
 
   useEffect(() => {
     if (list.length > 0) {
-      montaListaArquivoRetorno(list);
+      montaListaHistoricoLimpeza(list);
     }
-
     setCarregando(false);
   }, [list]);
 
-  const listarArquivoRetorno = () => {
-    arquivoRetornoUtils
-      .buscarArquivoRetornoPaginado(
+  const listarHistoricoLimpeza = () => {
+    limpezaUtils
+      .buscarLimpezaPaginado(
         configPaginado.quantidePorPagina,
         configPaginado.paginaAtual
       )
@@ -61,8 +59,8 @@ function TelaHistoricoArquivoRetorno() {
       });
   };
 
-  const montaListaArquivoRetorno = (dados) => {
-    setListaArquivoRetornoExibicao(
+  const montaListaHistoricoLimpeza = (dados) => {
+    setListaLimpezaExibicao(
       dados.map((item) => {
         return (
           <Linha>
@@ -96,16 +94,16 @@ function TelaHistoricoArquivoRetorno() {
   };
 
   return (
-    <div id="container-tela-historico-arquivo-retorno">
-      <header id="cabecalho-tela-historico-arquivo-retorno" className="p-10-px">
+    <div id="container-tela-historico-limpeza">
+      <header id="cabecalho-tela-historico-limpeza" className="p-10-px">
         <BotaoVoltarMenu />
-        <h2 className="ml-2">Histórico - Arquivo de Retorno</h2>
+        <h2 className="ml-2">Histórico - Limpeza</h2>
       </header>
-      <main id="conteudo-tela-historico-arquivo-retorno" className="p-10-px">
+      <main id="conteudo-tela-historico-limpeza" className="p-10-px">
         <div className="d-flex flex-wrap">
           <div className="col-4" />
           <div className="flex-grow-1">
-            <section className="sessao-conteudo-tela-historico-arquivo-retorno row">
+            <section className="sessao-conteudo-tela-historico-limpeza row">
               <div className="col-5">
                 <EntradaDados
                   tipo="text"
@@ -121,13 +119,13 @@ function TelaHistoricoArquivoRetorno() {
                 <Botao
                   estilo={"w-100-pc btn-azul"}
                   clique={() =>
-                    montaListaArquivoRetorno(
-                      arquivoRetornoUtils
-                        .buscarArquivoRetornoPorNomeCampanha(
+                    montaListaHistoricoLimpeza(
+                      limpezaUtils
+                        .buscarLimpezaPorNomeCampanha(
                           valorBuscaCampanha,
                           configPaginado.quantidadePagina
                         )
-                        .then((dados) => setList(dados))
+                        .then(dados => setList(dados))
                     )
                   }
                 >
@@ -142,15 +140,15 @@ function TelaHistoricoArquivoRetorno() {
             </section>
           </div>
         </div>
-        <section className="sessao-conteudo-tela-historico-arquivo-retorno">
+        <section className="sessao-conteudo-tela-historico-limpeza">
           <div>
-            <Tabela tamanho="450">
+            <Tabela tamanho="370">
               <Linha titulo={true}>
                 <Coluna tamanho="400">Usuário</Coluna>
                 <Coluna>Campanha</Coluna>
                 <Coluna>Feito em</Coluna>
               </Linha>
-              {!carregando && listaArquivoRetornoExibicao}
+              {!carregando && listaLimpezaExibicao}
               {carregando && <Carregando />}
             </Tabela>
           </div>
@@ -161,4 +159,4 @@ function TelaHistoricoArquivoRetorno() {
   );
 }
 
-export default TelaHistoricoArquivoRetorno;
+export default TelaHistoricoLimpeza;

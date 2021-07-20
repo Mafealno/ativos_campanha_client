@@ -208,7 +208,7 @@ function TelaGestaoUsuarios(props) {
           </div>
           <section className="sessao-conteudo-tela-gestao-usuarios">
             <div>
-              <Tabela tamanho="450">
+              <Tabela tamanho="370">
                 <Linha titulo={true}>
                   <Coluna tamanho="120">Usuário</Coluna>
                   <Coluna tamanho="200">Nome</Coluna>
@@ -241,7 +241,7 @@ function TelaGestaoUsuarios(props) {
 }
 
 const mapStateToProps = (state) => ({
-  contador: state.ModalUsuario.contador,
+  contador: state.Contador.contador,
 });
 
 const mapDispatchToProps = (dispatch) => ({});
