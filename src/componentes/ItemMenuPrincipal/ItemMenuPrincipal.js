@@ -5,7 +5,7 @@ import "./ItemMenuPrincipal.css";
 
 function ItemMenuPrincipal(props) {
     return (
-        <div class="container-item-menu-principal">
+        <div className="container-item-menu-principal">
             <header>
                 {props.titulo}
             </header>
