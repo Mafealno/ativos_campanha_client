@@ -9,7 +9,7 @@ import EntradaSelecao from "../EntradaSelecao/EntradaSelecao";
 import Opcao from "../EntradaSelecao/Opcao/Opcao";
 import Botao from "../Botao/Botao";
 
-import * as modalUsuarioActions from "../../stores/actions/ModalUsuario";
+import * as contadorActions from "../../stores/actions/Contador";
 import * as validacaoDadosUtils from "../../utils/ValidacaoDados";
 import * as usuarioUtils from "../../utils/Usuarios";
 import { showToast } from "../ToastControle/ToastControle";
@@ -221,11 +221,11 @@ function ModalUsuario(props) {
 }
 
 const mapStateToProps = (state) => ({
-    contador: state.ModalUsuario.contador,
+    contador: state.Contador.contador,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setContador : (contador) => dispatch(modalUsuarioActions.setContador(contador)),
+    setContador : (contador) => dispatch(contadorActions.setContador(contador)),
 });
 
 export default connect(
