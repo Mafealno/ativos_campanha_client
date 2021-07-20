@@ -69,14 +69,14 @@ function ModalLimite(props) {
     <ModalControle
       {...props}
       tituloModal={"Editar Limite"}
-      tamanhoModal="md"
+      tamanhoModal="sm"
       conteudoCorpo={
         <>
           <div className="row">
-            <div className="col d-flex justify-content-center align-items-center">
-              <label>{dados.descricao.valor ? dados.descricao.valor.charAt(0).toUpperCase() + dados.descricao.valor.slice(1) : ""}</label>
+            <div className="col centralizar">
+              <label className="text-center">{dados.descricao.valor ? dados.descricao.valor.charAt(0).toUpperCase() + dados.descricao.valor.slice(1) : ""}</label>
             </div>
-            <div className="col-3">
+            <div className="col-4 centralizar">
               <EntradaDados
                 tipo="number"
                 id="valor"
