@@ -18,6 +18,7 @@
     "react-toastify": "^7.0.3",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "remask": "0.1.0-alpha.5",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
