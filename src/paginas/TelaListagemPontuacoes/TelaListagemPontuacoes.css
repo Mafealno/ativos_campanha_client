@@ -1,0 +1,31 @@
+#container-tela-listagem-pontuacoes{
+    display: grid;
+    grid-template-areas: 
+    "cabecalho-tela-listagem-pontuacoes"
+    "conteudo-tela-listagem-pontuacoes";
+    grid-template-rows: 10% 90%;
+    height: 100%;
+    width: 100%;
+}
+
+#cabecalho-tela-listagem-pontuacoes{
+    grid-area: cabecalho-tela-listagem-pontuacoes;
+    display: flex;
+    align-items: center;
+}
+
+#conteudo-tela-listagem-pontuacoes{
+    grid-area: conteudo-tela-listagem-pontuacoes;
+}
+
+#cabecalho-tela-listagem-pontuacoes > h2 {
+    font-weight: bold; 
+ }
+
+ .sessao-conteudo-tela-listagem-pontuacoes{
+    margin-bottom: 10px;
+}
+
+.sessao-conteudo-tela-listagem-pontuacoes:first-child{
+    height: 90px;
+}
