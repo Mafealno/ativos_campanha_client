@@ -128,6 +128,7 @@ function TelaGestaoCampanhas() {
             <div className="col-4" />
             <div className="flex-grow-1">
               <section className="sessao-conteudo-tela-gestao-campanhas row">
+                <div className="col"/>
                 <div className="col-5">
                   <EntradaDados
                     tipo="text"
@@ -152,11 +153,6 @@ function TelaGestaoCampanhas() {
                     }
                   >
                     Buscar
-                  </Botao>
-                </div>
-                <div className="col">
-                  <Botao estilo={"w-100-pc btn-laranja"} clique={() => ""}>
-                    CSV <i className="fa fa-arrow-down" />
                   </Botao>
                 </div>
               </section>

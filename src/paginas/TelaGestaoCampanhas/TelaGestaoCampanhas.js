@@ -21,7 +21,7 @@ import "./TelaGestaoCampanhas.css";
 function TelaGestaoCampanhas() {
   const [listaCampanhasExibicao, setListaCampanhaExibicao] = useState([]);
   const [qtdeRegistrosTabela, setQtdeRegistrosTabela] = useState(0);
-  const [list, setList] = useState([]);
+  const [data, setData] = useState();
   const [paginacaoExibicao, setPaginacaoExibicao] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [showModalConfirmacao, setShowModalConfirmacao] = useState(false);
@@ -37,11 +37,10 @@ function TelaGestaoCampanhas() {
   }, [configPaginado.paginaAtual]);
 
   useEffect(() => {
-    if (list.length > 0) {
-      montaListaCampanhas(list);
+    if (data) {
+      montaListaCampanhas(data.campanhas, data);
     }
-    setCarregando(false);
-  }, [list]);
+  }, [data, qtdeRegistrosTabela]);
 
   const listarCampanhas = () => {
     campanhaUtils
@@ -55,9 +54,10 @@ function TelaGestaoCampanhas() {
             setQtdeRegistrosTabela(
               dados.data.primeiro_registro.Total_Registros
             );
-            setList(dados.data.campanhas);
+            setData(dados.data);
             if (dados.data.campanhas.length == 0) {
               showToast("aviso", "Não há registros a serem listados");
+              setCarregando(false);
             }
           } else {
             showToast("erro", dados.message);
@@ -66,9 +66,9 @@ function TelaGestaoCampanhas() {
       });
   };
 
-  const montaListaCampanhas = (dados) => {
+  const montaListaCampanhas = (list, dados) => {
     setListaCampanhaExibicao(
-      dados.map((item) => {
+      list.map((item) => {
         return (
           <Linha>
             <Coluna tamanho="80">{item.CampaignID}</Coluna>
@@ -114,6 +114,8 @@ function TelaGestaoCampanhas() {
         />
       );
     }
+
+    setCarregando(false);
   };
 
   return (
@@ -128,6 +130,7 @@ function TelaGestaoCampanhas() {
             <div className="col-4" />
             <div className="flex-grow-1">
               <section className="sessao-conteudo-tela-gestao-campanhas row">
+                <div className="col"/>
                 <div className="col-5">
                   <EntradaDados
                     tipo="text"
@@ -148,15 +151,13 @@ function TelaGestaoCampanhas() {
                           valorBuscaCampanha,
                           configPaginado.quantidadePagina
                         )
-                        .then(dados => setList(dados))
+                        .then(dados => {
+                          setData(dados.data);
+                          setQtdeRegistrosTabela(dados.data.primeiro_registro.Total_Registros);
+                        })
                     }
                   >
                     Buscar
-                  </Botao>
-                </div>
-                <div className="col">
-                  <Botao estilo={"w-100-pc btn-laranja"} clique={() => ""}>
-                    CSV <i className="fa fa-arrow-down" />
                   </Botao>
                 </div>
               </section>

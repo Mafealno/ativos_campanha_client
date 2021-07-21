@@ -19,14 +19,14 @@ import "./TelaHistoricoLimpeza.css";
 
 function TelaHistoricoLimpeza() {
   const [listaLimpezaExibicao, setListaLimpezaExibicao] = useState([]);
-  const [list, setList] = useState([]);
+  const [data, setData] = useState();
   const [qtdeRegistrosTabela, setQtdeRegistrosTabela] = useState(0);
-  const [paginacaoExibicao, setPaginacaoExibicao] = useState([]);
+  const [paginacaoExibicao, setPaginacaoExibicao] = useState(<></>);
   const [carregando, setCarregando] = useState(true);
   const [valorBuscaCampanha, setValorBuscaCampanha] = useState("");
   const [configPaginado, setConfigPaginado] = useState({
     quantidePorPagina: 10,
-    paginaAtual: 1,
+    paginaAtual: 0,
   });
 
   useEffect(() => {
@@ -34,11 +34,10 @@ function TelaHistoricoLimpeza() {
   }, [configPaginado.paginaAtual]);
 
   useEffect(() => {
-    if (list.length > 0) {
-      montaListaHistoricoLimpeza(list);
+    if (data) {
+      montaListaHistoricoLimpeza(data.historico_limpeza, data);
     }
-    setCarregando(false);
-  }, [list]);
+  }, [data, qtdeRegistrosTabela]);
 
   const listarHistoricoLimpeza = () => {
     limpezaUtils
@@ -49,19 +48,21 @@ function TelaHistoricoLimpeza() {
       .then((dados) => {
         if (dados.success) {
           setQtdeRegistrosTabela(dados.data.totalRegistros);
-          setList(dados.data);
+          setData(dados.data);
           if (dados.data == 0) {
             showToast("aviso", "Não há registros a serem listados");
+            setCarregando(false);
           }
         } else {
           showToast("erro", dados.message);
+          setCarregando(false);
         }
       });
   };
 
-  const montaListaHistoricoLimpeza = (dados) => {
+  const montaListaHistoricoLimpeza = (list, dados) => {
     setListaLimpezaExibicao(
-      dados.map((item) => {
+      list.map((item) => {
         return (
           <Linha>
             <Coluna tamanho="400">
@@ -80,7 +81,7 @@ function TelaHistoricoLimpeza() {
       setPaginacaoExibicao(
         <Paginacao
           quantidadePagina={configPaginado.quantidePorPagina}
-          totalRegistros={qtdeRegistrosTabela}
+          totalRegistros={dados.totalRegistros}
           paginaAtual={(paginaSelecionada) =>
             setConfigPaginado({
               ...configPaginado,
@@ -91,6 +92,7 @@ function TelaHistoricoLimpeza() {
         />
       );
     }
+    setCarregando(false);
   };
 
   return (
@@ -104,6 +106,7 @@ function TelaHistoricoLimpeza() {
           <div className="col-4" />
           <div className="flex-grow-1">
             <section className="sessao-conteudo-tela-historico-limpeza row">
+              <div className="col"/>
               <div className="col-5">
                 <EntradaDados
                   tipo="text"
@@ -125,16 +128,14 @@ function TelaHistoricoLimpeza() {
                           valorBuscaCampanha,
                           configPaginado.quantidadePagina
                         )
-                        .then(dados => setList(dados))
+                        .then(dados => {
+                          setData(dados.data);
+                          setQtdeRegistrosTabela(dados.data.totalRegistros);
+                        })
                     )
                   }
                 >
                   Buscar
-                </Botao>
-              </div>
-              <div className="col">
-                <Botao estilo={"w-100-pc btn-laranja"} clique={() => ""}>
-                  CSV <i className="fa fa-arrow-down" />
                 </Botao>
               </div>
             </section>

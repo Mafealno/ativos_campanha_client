@@ -10,9 +10,9 @@ import Linha from "../../componentes/Linha/Linha";
 import Coluna from "../../componentes/Coluna/Coluna";
 import BotaoVoltarMenu from "../../componentes/BotaoVoltarMenu/BotaoVoltarMenu";
 import ModalLimite from "../../componentes/ModalLimite/ModalLimite";
+import { showToast } from "../../componentes/ToastControle/ToastControle";
 
 import * as limiteUtils from "../../utils/Limites";
-import { showToast } from "../../componentes/ToastControle/ToastControle";
 
 import "./TelaGerenciamentoLimites.css";
 
@@ -31,7 +31,6 @@ function TelaGerenciamentoLimites(props) {
     if (list.length > 0) {
       montarListaLimites(list);
     }
-    setCarregando(false);
   }, [list]);
 
   const listarLimites = () => {
@@ -40,6 +39,7 @@ function TelaGerenciamentoLimites(props) {
         setList(dados.data);
         if (dados.data.length == 0) {
           showToast("aviso", "Não há registros a serem listados");
+          setCarregando(false);
         }
       } else {
         showToast("erro", dados.message);
@@ -66,6 +66,8 @@ function TelaGerenciamentoLimites(props) {
         );
       })
     );
+
+    setCarregando(false);
   };
 
   const abrirModalLimite = (dadosEdicao) => {

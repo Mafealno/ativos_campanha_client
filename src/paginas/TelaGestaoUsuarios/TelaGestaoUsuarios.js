@@ -30,7 +30,7 @@ function TelaGestaoUsuarios(props) {
   const [showModalConfirmacao, setShowModalConfirmacao] = useState(false);
   const [dadosEdicao, setDadosEdicao] = useState({});
   const [idDeletar, setIdDeletar] = useState(0);
-  const [list, setList] = useState([]);
+  const [data, setData] = useState();
   const [valorBuscaUsuario, setValorBuscaUsuario] = useState("");
   const [configPaginado, setConfigPaginado] = useState({
     quantidadePagina: 10,
@@ -42,11 +42,10 @@ function TelaGestaoUsuarios(props) {
   }, [configPaginado.paginaAtual, props.contador]);
 
   useEffect(() => {
-    if (list.length > 0) {
-      montarListaUsuarios(list);
+    if (data) {
+      montarListaUsuarios(data.usuarios, data);
     }
-    setCarregando(false);
-  }, [list]);
+  }, [data, qtdeRegistrosTabela]);
 
   useEffect(() => {
     if (!showModalUsuario) {
@@ -70,21 +69,23 @@ function TelaGestaoUsuarios(props) {
       .then((dados) => {
         if (dados.success) {
           setQtdeRegistrosTabela(dados.data.totalRegistros);
-          setList(dados.data.usuarios);
+          setData(dados.data);
           if (dados.data.usuarios.length == 0) {
             showToast("aviso", "Não há registros a serem listados");
+            setCarregando(false);
           }
         } else {
           showToast("erro", dados.message);
+          setCarregando(false);
         }
       });
   };
 
-  const montarListaUsuarios = (dados) => {
+  const montarListaUsuarios = (list, dados) => {
     const usuarioLogado = buscarUsuarioLogado();
 
     setListaUsuariosExibicao(
-      dados.map((item) => {
+      list.map((item) => {
         return (
           <Linha>
             <Coluna tamanho="120">{item.usuario}</Coluna>
@@ -163,6 +164,7 @@ function TelaGestaoUsuarios(props) {
             <div className="col-4" />
             <div className="flex-grow-1">
               <section className="sessao-conteudo-tela-gestao-usuarios row">
+                <div className="col"/>
                 <div className="col-5">
                   <EntradaDados
                     tipo="text"
@@ -184,7 +186,10 @@ function TelaGestaoUsuarios(props) {
                           valorBuscaUsuario,
                           configPaginado.quantidadePagina
                         )
-                        .then(dados => setList(dados))
+                        .then(dados => {
+                          setData(dados.data);
+                          setQtdeRegistrosTabela(dados.data.totalRegistros);
+                        })
                     }
                   >
                     Buscar
@@ -196,11 +201,6 @@ function TelaGestaoUsuarios(props) {
                     clique={() => abrirModalUsuario()}
                   >
                     Novo
-                  </Botao>
-                </div>
-                <div className="col">
-                  <Botao estilo={"w-100-pc btn-laranja"} clique={() => ""}>
-                    CSV <i className="fa fa-arrow-down" />
                   </Botao>
                 </div>
               </section>
