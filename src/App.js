@@ -12,6 +12,7 @@ import TelaGestaoCampanhas from "./paginas/TelaGestaoCampanhas/TelaGestaoCampanh
 import TelaHistoricoArquivoRetorno from "./paginas/TelaHistoricoArquivoRetorno/TelaHistoricoArquivoRetorno";
 import TelaHistoricoLimpeza from "./paginas/TelaHistoricoLimpeza/TelaHistoricoLimpeza";
 import TelaGerenciamentoLimites from './paginas/TelaGerenciamentoLimites/TelaGerenciamentoLimites';
+import TelaListagemPontuacoes from './paginas/TelaListagemPontuacoes/TelaListagemPontuacoes';
 
 import './App.css';
 import './EstiloGlobal.css';
@@ -26,18 +27,13 @@ function App() {
           historico.push("/login");
         }
       }
-    }, [historico])
+    }, [historico]);
 
   return (
     <>
-    
       <div id="container-app">
         <header id="espaco-cabecalho" className="p-10-px">
-        <Rota
-          caminho="/dashboard"
-          exigeAutenticacao={true}
-          componente={()=> <MenuAplicativo />}
-          />
+          <Rota caminho="/dashboard" exigeAutenticacao={true} componente={()=> <MenuAplicativo />} />
         </header>
         <main id="espaco-conteudo">
           <div id="espaco-esquerdo" className="p-10-px"></div>
@@ -52,6 +48,7 @@ function App() {
                 <Permissao nome="TelaHistoricoLimpeza" componente={() => <ItemMenuPrincipal titulo="Historico de Limpeza" descricao="Historico de limpeza de Campanhas" acaoExecutar={"/dashboard/limpeza"} /> } />
                 <Permissao nome="TelaSaneamentoMailing" componente={() => <ItemMenuPrincipal titulo="Saneamento de mailing" descricao="Regras de Saneamento do processo de importação das campanhas" acaoExecutar={"/dashboard/saneamento"} /> } />
                 <Permissao nome="TelaGerenciamentoLimites" componente={() => <ItemMenuPrincipal titulo="Gerenciamento de Limites" descricao="Editar valores dos limites" acaoExecutar={"/dashboard/limites"} /> } />
+                <Permissao nome="TelaListagemPontuacoes" componente={() => <ItemMenuPrincipal titulo="Lista de Pontuações" descricao="Lista de pontuações dos números classificados" acaoExecutar={"/dashboard/pontuacoes"} /> } />
               </>
               }   
               />
@@ -63,6 +60,7 @@ function App() {
               <Rota nome="UrlHistoricoLimpeza" caminho="/dashboard/limpeza" exigeAutenticacao={true} componente={() => <TelaHistoricoLimpeza />} />  
               <Rota nome="UrlSaneamentoMailing" caminho="/dashboard/saneamento" exigeAutenticacao={true} componente={() => <div>saneamento</div>} />  
               <Rota nome="UrlGerenciamentoLimites" caminho="/dashboard/limites" exigeAutenticacao={true} componente={() => <TelaGerenciamentoLimites />} />  
+              <Rota nome="UrlListagemPontuacoes" caminho="/dashboard/pontuacoes" exigeAutenticacao={true} componente={() => <TelaListagemPontuacoes />} />  
             </section>    
           </div>
           <div id="espaco-direita" className="p-10-px"></div>
