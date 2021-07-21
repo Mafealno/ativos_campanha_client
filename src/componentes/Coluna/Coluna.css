@@ -13,3 +13,12 @@
 .container-coluna:last-child{
     padding-right: 0;
 }
+
+.icon-ordenacao{
+    padding-left: 5px;
+    position: absolute;
+}
+
+.cursor{
+    cursor: pointer;
+}

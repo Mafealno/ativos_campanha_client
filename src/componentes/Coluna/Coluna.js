@@ -21,8 +21,11 @@ function Coluna(props) {
     }, [])
 
     return (
-        <div className={"container-coluna cortar-texto " + props.estilo} style={tamanho}>
-            <p className="cortar-texto w-100-pc">{props.children}</p>
+        <div className={"container-coluna cortar-texto " + props.estilo || ""} style={tamanho}>
+            <p className={props.ordernar ? "cursor cortar-texto w-100-pc" : "cortar-texto w-100-pc"} onClick={props.ordernar}>
+                {props.children}
+                <i id={"icon-" + props.id} className="icon-ordenacao fa"/>
+            </p>
         </div>
     )
 }
