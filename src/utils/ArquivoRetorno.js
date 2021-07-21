@@ -10,21 +10,21 @@ export const buscarArquivoRetornoPaginado = async (quantidadePagina, paginaAtual
     // }
 
     return await backEndUtils.chamarBackEnd("GET", "/historico_retorno").then((resposta) => {
-        if(resposta.status == 200) {
-            return resposta.json().then((dados) => {
-                if(dados.data.length > 0){
-                    dados.data = dados.data.map((item) => {
-                        const usuario = usuarioUtils.buscarUsuarioPorId(item.id_usuario).then(dados => dados);
-                        return {
-                            ...item,
-                            usuario: usuario
-                        };
-                    });
-                }
-
-                return dados;
-            });
-        }
+        // if(resposta.status == 200) {
+        //     return resposta.json().then((dados) => {
+        //         if(dados.data.historico_retorno.length > 0){
+        //             dados.data.historico_retorno = dados.data.historico_retorno.map((item) => {
+        //                 const usuario = usuarioUtils.buscarUsuarioPorId(item.id_usuario).then(dados => dados);
+        //                 return {
+        //                     ...item,
+        //                     usuario: usuario
+        //                 };
+        //             });
+        //         }
+        //         return dados;
+        //     });
+        // }
+        return {};
     })
 }
 
