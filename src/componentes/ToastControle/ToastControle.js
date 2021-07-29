@@ -1,6 +1,7 @@
 import React from "react";
-import "./ToastControle.css";
 import { toast, ToastContainer } from 'react-toastify';
+
+import "./ToastControle.css";
 import 'react-toastify/dist/ReactToastify.css';
 
 export const showToast = (tipo, mensagem ) => {
@@ -17,10 +18,10 @@ export const showToast = (tipo, mensagem ) => {
     default:
       toast(mensagem);
       break;
-  }
+  };
 };
 function ToastControle() {
   return <ToastContainer />;
-}
+};
 
-export default ToastControle
+export default ToastControle;

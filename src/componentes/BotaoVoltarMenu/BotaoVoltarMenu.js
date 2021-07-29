@@ -1,7 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
-import Botao from '../Botao/Botao'
+import Botao from "../Botao/Botao";
 
 function BotaoVoltarMenu() {
     return (
@@ -10,7 +10,7 @@ function BotaoVoltarMenu() {
                 <i className="fa fa-arrow-left"/>
             </Botao>
         </Link>
-    )
-}
+    );
+};
 
 export default BotaoVoltarMenu

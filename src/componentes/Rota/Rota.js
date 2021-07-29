@@ -9,7 +9,6 @@ import * as loginUtils from "../../utils/Login"
 import store from "../../stores/store";
 
 const RotaPrivada = ({...rest}) => {
-  
 
     return <Route {...rest} render={props => 
         loginUtils.usuarioLogado(rest.exigeAutenticacao) && 
@@ -18,14 +17,10 @@ const RotaPrivada = ({...rest}) => {
         <Redirect to={{ pathname:"/login" }} />
     }
     />
-}
+};
 
 function Rota(props){
-    return (
-        <Switch>
-            <RotaPrivada path={props.caminho} {...props} />
-        </Switch>
-    )
-}
+    return <Switch><RotaPrivada path={props.caminho} {...props} /></Switch>
+};
 
-export default Rota
+export default Rota;

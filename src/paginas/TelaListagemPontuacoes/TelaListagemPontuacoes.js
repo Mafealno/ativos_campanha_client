@@ -19,21 +19,20 @@ import * as pontuacoesUtils from "../../utils/Pontuacoes";
 import "./TelaListagemPontuacoes.css";
 
 function TelaListagemPontuacoes() {
-
-    const [listaPontuacaoExibicao, setListaPontuacaoExibicao] = useState([]);
-    const [valorBuscaTelefone, setValorBuscaTelefone] = useState("");
-    const [data, setData] = useState();
-    const [paginacaoExibicao, setPaginacaoExibicao] = useState([]);
-    const [qtdeRegistrosTabela, setQtdeRegistrosTabela] = useState(0);
-    const [dadosEdicao, setDadosEdicao] = useState({});
+    const mascaras = ['(99) 9999-9999',  '(99) 99999-9999'];
+  
     const [carregando, setCarregando] = useState(true);
     const [showModalPontuacao, setShowModalPontuacao] = useState(false);
+    const [listaPontuacaoExibicao, setListaPontuacaoExibicao] = useState([]);
+    const [paginacaoExibicao, setPaginacaoExibicao] = useState([]);
+    const [dadosEdicao, setDadosEdicao] = useState({});
+    const [qtdeRegistrosTabela, setQtdeRegistrosTabela] = useState(0);
+    const [valorBuscaTelefone, setValorBuscaTelefone] = useState("");
+    const [data, setData] = useState();
     const [configPaginado, setConfigPaginado] = useState({
         quantidePorPagina: 100,
         paginaAtual: 0,
       });
-
-    const mascaras = ['(99) 9999-9999',  '(99) 99999-9999'];
 
       useEffect(() => {
         listarPontuacoes();
@@ -42,7 +41,7 @@ function TelaListagemPontuacoes() {
       useEffect(() => {
         if (data) {
           montaListaPontuacoes(data.pontuacoes, data);
-        }
+        };
       }, [data, qtdeRegistrosTabela]);
 
       const listarPontuacoes = () => {
@@ -55,14 +54,14 @@ function TelaListagemPontuacoes() {
             if (dados.success) {
               setQtdeRegistrosTabela(dados.data.totalRegistros);
               setData(dados.data);
-              if (dados.data == 0) {
+              if (dados.data.pontuacoes.length == 0) {
                 showToast("aviso", "Não há registros a serem listados");
                 setCarregando(false);
               }
             } else {
               showToast("erro", dados.message);
               setCarregando(false);
-            }
+            };
           });
       };
 
@@ -73,7 +72,7 @@ function TelaListagemPontuacoes() {
               <Linha>
                 <Coluna tamanho="400">{mask(item.telefone, mascaras)}</Coluna>
                 <Coluna tamanho="400">{pontuacoesUtils.retornarPropriedades(item).length}</Coluna>
-                <Coluna><Botao estilo="btn-azul w-100-pc" clique={() => abrirModalPontuacap(item)}>Selecionar</Botao></Coluna>
+                <Coluna><Botao estilo="btn-laranja w-100-pc" clique={() => abrirModalPontuacap(item)}>Selecionar</Botao></Coluna>
               </Linha>
             );
           })
@@ -132,15 +131,16 @@ function TelaListagemPontuacoes() {
                             <div className="col-3">
                                 <Botao
                                   estilo={"w-100-pc btn-azul"}
-                                  clique={() => ""
-                                      // montaListaPontuacoes(
-                                      //   pontuacoesUtils
-                                      //     .buscarPontuacaoPorNumeroTelefone(
-                                      //       valorBuscaCampanha,
-                                      //       configPaginado.quantidadePagina
-                                      //     )
-                                      //     .then(dados => setList(dados))
-                                      // )
+                                  clique={() => 
+                                        pontuacoesUtils
+                                          .buscarPontuacoesPorTelefone(
+                                            configPaginado.quantidePorPagina,
+                                            valorBuscaTelefone
+                                          )
+                                          .then(dados => {
+                                            setData(dados.data)
+                                            setQtdeRegistrosTabela(dados.data.totalRegistros)
+                                          })
                                   }
                                   >
                                     Buscar
@@ -151,12 +151,13 @@ function TelaListagemPontuacoes() {
                 </div>
                 <section className="sessao-conteudo-tela-listagem-pontuacoes">
                 <div>
-                    <Tabela tamanho="370">
+                    <Tabela tamanho="370" titulo={
                     <Linha titulo={true}>
                         <Coluna tamanho="400">Telefone</Coluna>
                         <Coluna tamanho="400">Quantidade de Pontações</Coluna>
                         <Coluna>Ações</Coluna>
                     </Linha>
+                    }>
                     {!carregando && listaPontuacaoExibicao}
                     {carregando && <Carregando />}
                     </Tabela>

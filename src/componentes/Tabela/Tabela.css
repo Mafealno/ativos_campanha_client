@@ -1,4 +1,4 @@
-.container-tabela{
+.container-tabela-linhas{
     display: flex;
     flex-direction: column;
     overflow-x: auto;

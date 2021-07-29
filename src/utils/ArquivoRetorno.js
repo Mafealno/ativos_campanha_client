@@ -2,37 +2,65 @@
 import * as backEndUtils from "./BackEnd";
 import * as usuarioUtils from "./Usuarios";
 
-export const buscarArquivoRetornoPaginado = async (quantidadePagina, paginaAtual) => {
+export const buscarHistoricoArquivoRetornoPaginado = async (quantidadePagina, paginaAtual) => {
 
-    // const requisicao = {
-    //     quantidadePagina : quantidadePagina,
-    //     paginaAtual: paginaAtual
-    // }
+    const requisicao = {
+        quantidadePagina : quantidadePagina,
+        paginaAtual: paginaAtual
+    }
 
-    return await backEndUtils.chamarBackEnd("GET", "/historico_retorno").then((resposta) => {
-        // if(resposta.status == 200) {
-        //     return resposta.json().then((dados) => {
-        //         if(dados.data.historico_retorno.length > 0){
-        //             dados.data.historico_retorno = dados.data.historico_retorno.map((item) => {
-        //                 const usuario = usuarioUtils.buscarUsuarioPorId(item.id_usuario).then(dados => dados);
-        //                 return {
-        //                     ...item,
-        //                     usuario: usuario
-        //                 };
-        //             });
-        //         }
-        //         return dados;
-        //     });
-        // }
-        return {};
+    return await backEndUtils.chamarBackEnd("POST", "/historico_retorno", requisicao).then( async (resposta) => {
+        if(resposta.status == 200) {
+            return resposta.json().then( async (dados) => {
+                if(dados.data.historicos.length > 0){
+                    for(let item of dados.data.historicos){
+                        item.usuario = await usuarioUtils.buscarUsuarioPorId(item.id_usuario).then(dados => dados);
+                    }
+                }
+                return dados;
+            });
+        }else{
+            return {};
+        }
     })
 }
 
-export const buscarArquivoRetornoPorNomeCampanha = async (nomeCampanha) => {
+export const buscarHistoricoArquivoRetornoPorNomeCampanha = async (nomeCampanha, quantidadePorPagina) => {
 
-    return await backEndUtils.chamarBackEnd("GET", "/historico_retorno/" + nomeCampanha).then((resposta) => {
+    const requisicao = {
+        paginaAtual: 0,
+        quantidadePagina: quantidadePorPagina,
+        campanha: nomeCampanha
+    }
+
+    return await backEndUtils.chamarBackEnd("POST", "/historico_retorno_campanha", requisicao).then((resposta) => {
+        if(resposta.status == 200) {
+            return resposta.json().then( async (dados) => {
+                if(dados.data.historicos.length > 0){
+                    for(let item of dados.data.historicos){
+                        item.usuario = await usuarioUtils.buscarUsuarioPorId(item.id_usuario).then(dados => dados);
+                    }
+                }
+                return dados;
+            });
+        }else{
+            return {};
+        }
+    })
+}
+
+export const gerarArquivoRetorno = async (idUsuario, idCampanha, campanha) => {
+
+    const requisicao = {
+        id_usuario: idUsuario,
+        id_campanha: idCampanha,
+        campanha: campanha,
+        feito_em: new Date()
+    }
+
+    return await backEndUtils.chamarBackEnd("POST", "/retorno", requisicao).then((resposta) => {
         if(resposta.status == 200) {
             return resposta.json().then((dados) => dados);
         }
-    })
+    });
 }

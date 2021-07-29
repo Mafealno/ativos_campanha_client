@@ -1,6 +1,8 @@
 import React from "react";
-import Botao from "../Botao/Botao";
 import { Link } from "react-router-dom";
+
+import Botao from "../Botao/Botao";
+
 import "./ItemMenuPrincipal.css";
 
 function ItemMenuPrincipal(props) {
@@ -20,7 +22,7 @@ function ItemMenuPrincipal(props) {
                 </Link>
             </footer>
         </div>
-    )
-}
+    );
+};
 
-export default ItemMenuPrincipal
+export default ItemMenuPrincipal;

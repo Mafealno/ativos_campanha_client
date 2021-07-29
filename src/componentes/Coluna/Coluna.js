@@ -1,10 +1,10 @@
 /* eslint-disable react/style-prop-object */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from "react";
+
 import "./Coluna.css";
 
 function Coluna(props) {
-
     const [tamanho, setTamanho] = useState({});
 
     useEffect(() => {
@@ -12,13 +12,13 @@ function Coluna(props) {
             setTamanho({
                 width: props.tamanho + "px",
                 maxWidth: props.tamanho + "px"
-            })
+            });
         }else{
             setTamanho({
                 flexGrow: 1
-            })
-        }
-    }, [])
+            });
+        };
+    }, []);
 
     return (
         <div className={"container-coluna cortar-texto " + props.estilo || ""} style={tamanho}>
@@ -27,7 +27,7 @@ function Coluna(props) {
                 <i id={"icon-" + props.id} className="icon-ordenacao fa"/>
             </p>
         </div>
-    )
-}
+    );
+};
 
-export default Coluna
+export default Coluna;

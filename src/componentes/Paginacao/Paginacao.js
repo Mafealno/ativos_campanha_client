@@ -1,14 +1,14 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect} from "react";
 import ReactPaginate from "react-paginate";
+
 import "./Paginacao.css";
 
 function Paginacao(props) {
-
     const [totalDePaginas, setTotalDePaginas] = useState(0);
 
     useEffect(() => {
         setTotalDePaginas(totalPaginas(props.quantidadePagina, props.totalRegistros));
-    }, [props.quantidadePagina, props.totalRegistros])
+    }, [props.quantidadePagina, props.totalRegistros]);
 
     const totalPaginas = (quantidadePagina, totalRegistros) => {
         return totalRegistros / quantidadePagina;
@@ -42,7 +42,7 @@ function Paginacao(props) {
             activeClassName={'pagina-atual'}
             />
         </div>
-    )
-}
+    );
+};
 
 export default Paginacao;

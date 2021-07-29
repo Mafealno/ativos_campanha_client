@@ -13,7 +13,6 @@ import { showToast } from "../ToastControle/ToastControle";
 
 function ModalLimite(props) {
   const modeloValidacao = validacaoDadosUtils.dadosCampo;
-
   const [dados, setDados] = useState({
     id: { ...modeloValidacao, requerido: true, valorPadrao: "" },
     descricao: { ...modeloValidacao, requerido: true, valorPadrao: "" },
@@ -25,7 +24,7 @@ function ModalLimite(props) {
       preencherCampos(props.dados);
     } else {
       limparCampos();
-    }
+    };
   }, [props.show]);
 
   const preencherCampos = (dadosLimite) => {
@@ -52,7 +51,7 @@ function ModalLimite(props) {
 
     if(houveErro){
         return
-    }
+    };
 
     limiteUtils.atualizarLimite(dados).then((dados) => {
         if(dados.success){
@@ -61,9 +60,9 @@ function ModalLimite(props) {
             props.fecharModal();
         }else{
             showToast("erro", dados.message);
-        }
+        };
     });
-}
+};
 
   return (
     <ModalControle
@@ -115,7 +114,4 @@ const mapDispatchToProps = (dispatch) => ({
     setContador : (contador) => dispatch(contadorActions.setContador(contador)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ModalLimite);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalLimite);

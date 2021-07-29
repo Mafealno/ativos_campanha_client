@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 import * as validacaoDadosUtils from "../../utils/ValidacaoDados";
 
@@ -19,15 +19,15 @@ function EntradaDados(props) {
     useEffect(() => {
         if(props.valorInicial){
             setValorEntrada({...valorEntrada, valor: props.valorInicial});
-        }
+        };
     }, [props.valorInicial]);
 
     const pressionarEnter = (evento, acaoAcionar) => {
         if (evento.key === "Enter") {
             if(acaoAcionar){
                 acaoAcionar();
-            }
-        }
+            };
+        };
       };
     return (
         <>
@@ -46,7 +46,7 @@ function EntradaDados(props) {
             /> 
             <span className="invalid-feedback" id={"erro-" + props.id}>teste</span>
         </>
-    )
-}
+    );
+};
 
-export default EntradaDados
+export default EntradaDados;

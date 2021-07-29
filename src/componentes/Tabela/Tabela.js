@@ -20,8 +20,11 @@ function Tabela(props) {
     }, [])
 
     return (
-        <div className={"container-tabela w-100-pc " + props.estilo} style={tamanho}>
-            {props.children}
+        <div className="container-tabela-cabecalho">
+            {props.titulo}
+            <div className={"container-tabela-linhas w-100-pc " + props.estilo || ""} style={tamanho}>
+                {props.children}
+            </div>
         </div>
     )
 }

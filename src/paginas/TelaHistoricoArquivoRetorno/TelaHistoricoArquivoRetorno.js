@@ -19,16 +19,15 @@ import * as geralUtils from "../../utils/Geral";
 import "./TelaHistoricoArquivoRetorno.css";
 
 function TelaHistoricoArquivoRetorno() {
-  const [listaArquivoRetornoExibicao, setListaArquivoRetornoExibicao] =
-    useState([]);
-  const [data, setData] = useState();
-  const [qtdeRegistrosTabela, setQtdeRegistrosTabela] = useState(0);
-  const [paginacaoExibicao, setPaginacaoExibicao] = useState([]);
-  const [carregando, setCarregando] = useState(true);
-  const [valorBuscaCampanha, setValorBuscaCampanha] = useState("");
-  const [configPaginado, setConfigPaginado] = useState({
-    quantidePorPagina: 10,
-    paginaAtual: 0,
+    const [carregando, setCarregando] = useState(true);
+    const [listaArquivoRetornoExibicao, setListaArquivoRetornoExibicao] = useState([]);
+    const [paginacaoExibicao, setPaginacaoExibicao] = useState([]);
+    const [qtdeRegistrosTabela, setQtdeRegistrosTabela] = useState(0);
+    const [valorBuscaCampanha, setValorBuscaCampanha] = useState("");
+    const [data, setData] = useState();
+    const [configPaginado, setConfigPaginado] = useState({
+      quantidadePorPagina: 10,
+      paginaAtual: 0,
   });
 
   useEffect(() => {
@@ -37,21 +36,21 @@ function TelaHistoricoArquivoRetorno() {
 
   useEffect(() => {
     if (data) {
-      montaListaArquivoRetorno(data.historico_retorno, data);
+      montaListaArquivoRetorno(data.historicos, data);
     }
   }, [data, qtdeRegistrosTabela]);
 
   const listarArquivoRetorno = () => {
     arquivoRetornoUtils
-      .buscarArquivoRetornoPaginado(
-        configPaginado.quantidePorPagina,
+      .buscarHistoricoArquivoRetornoPaginado(
+        configPaginado.quantidadePorPagina,
         configPaginado.paginaAtual
       )
       .then((dados) => {
         if (dados.success) {
           setQtdeRegistrosTabela(dados.data.totalRegistros);
           setData(dados.data);
-          if (dados.data == 0) {
+          if (dados.data.historicos.length == 0) {
             showToast("aviso", "Não há registros a serem listados");
             setCarregando(false);
           }
@@ -63,26 +62,27 @@ function TelaHistoricoArquivoRetorno() {
   };
 
   const montaListaArquivoRetorno = (list, dados) => {
+    
     setListaArquivoRetornoExibicao(
       list.map((item) => {
-        return (
-          <Linha>
-            <Coluna tamanho="400">
-              {item.usuario.nome || item.usuario._id}
-            </Coluna>
-            <Coluna>{item.campanha + " " + item.sobrenome}</Coluna>
-            <Coluna>{geralUtils.formatarData(item.feito_em)}</Coluna>
-          </Linha>
-        );
+          return (
+            <Linha>
+              <Coluna tamanho="400">
+                {item.usuario ? item.usuario.nome + " " + item.usuario.sobrenome : item.id_usuario}
+              </Coluna>
+              <Coluna tamanho="300">{item.campanha}</Coluna>
+              <Coluna>{geralUtils.formatarDataHora(item.feito_em)}</Coluna>
+            </Linha>
+          );
       })
     );
 
-    if (qtdeRegistrosTabela <= configPaginado.quantidePorPagina) {
+    if (qtdeRegistrosTabela <= configPaginado.quantidadePorPagina) {
       setPaginacaoExibicao(<></>);
     } else {
       setPaginacaoExibicao(
         <Paginacao
-          quantidadePagina={configPaginado.quantidePorPagina}
+          quantidadePagina={configPaginado.quantidadePorPagina}
           totalRegistros={dados.totalRegistros}
           paginaAtual={(paginaSelecionada) =>
             setConfigPaginado({
@@ -124,17 +124,14 @@ function TelaHistoricoArquivoRetorno() {
                 <Botao
                   estilo={"w-100-pc btn-azul"}
                   clique={() =>
-                    montaListaArquivoRetorno(
-                      arquivoRetornoUtils
-                        .buscarArquivoRetornoPorNomeCampanha(
+                      arquivoRetornoUtils.buscarHistoricoArquivoRetornoPorNomeCampanha(
                           valorBuscaCampanha,
-                          configPaginado.quantidadePagina
+                          configPaginado.quantidadePorPagina
                         )
                         .then((dados) => {
                           setData(dados.data);
                           setQtdeRegistrosTabela(dados.data.totalRegistros)
                         })
-                    )
                   }
                 >
                   Buscar
@@ -145,12 +142,13 @@ function TelaHistoricoArquivoRetorno() {
         </div>
         <section className="sessao-conteudo-tela-historico-arquivo-retorno">
           <div>
-            <Tabela tamanho="370">
+            <Tabela tamanho="370" titulo={
               <Linha titulo={true}>
                 <Coluna tamanho="400">Usuário</Coluna>
-                <Coluna>Campanha</Coluna>
+                <Coluna tamanho="300">Campanha</Coluna>
                 <Coluna>Feito em</Coluna>
-              </Linha>
+              </Linha> 
+              }>
               {!carregando && listaArquivoRetornoExibicao}
               {carregando && <Carregando />}
             </Tabela>

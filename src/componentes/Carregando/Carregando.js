@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
+
 import "./Carregando.css";
 
-function Carregando () {
+function Carregando() {
+    return(
+        <div className="container">
+        <div className="carregando"></div>
+        </div>
+    );
+};
 
-return(
-    <div className="container">
-    <div className="carregando"></div>
-    </div>
-)
- 
-}
-export default Carregando
+export default Carregando;

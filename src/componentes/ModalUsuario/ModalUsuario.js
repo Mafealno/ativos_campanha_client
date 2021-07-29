@@ -8,15 +8,14 @@ import EntradaDados from "../EntradaDados/EntradaDados";
 import EntradaSelecao from "../EntradaSelecao/EntradaSelecao";
 import Opcao from "../EntradaSelecao/Opcao/Opcao";
 import Botao from "../Botao/Botao";
+import { showToast } from "../ToastControle/ToastControle";
 
 import * as contadorActions from "../../stores/actions/Contador";
 import * as validacaoDadosUtils from "../../utils/ValidacaoDados";
 import * as usuarioUtils from "../../utils/Usuarios";
-import { showToast } from "../ToastControle/ToastControle";
 import { buscarUsuarioLogado } from "../../utils/Login";
 
 function ModalUsuario(props) {
-
     const modeloValidacao = validacaoDadosUtils.dadosCampo;
 
     const [usuarioLogado, setUsuarioLogado] = useState({});
@@ -39,8 +38,8 @@ function ModalUsuario(props) {
             preencherCampos(props.dados);
         }else{
             limparCampos();
-        }
-    }, [props.show])
+        };
+    }, [props.show]);
 
     const preencherCampos = (dadosUsuario) => {
         setDados({
@@ -54,8 +53,8 @@ function ModalUsuario(props) {
             criadoPor: {...dados.criadoPor, valor: dadosUsuario.criado_por },
             criadoEm: {...dados.criadoEm, valor: dadosUsuario.criado_em },
             senha : { ...dados.senha, requerido: false }
-        })
-    }
+        });
+    };
 
     const limparCampos = () => {
         setDados({
@@ -69,8 +68,8 @@ function ModalUsuario(props) {
             criadoPor: {...dados.criadoPor, valor:  dados.criadoPor.valorPadrao },
             criadoEm: {...dados.criadoEm, valor: dados.criadoEm.valorPadrao },
             senha: {...dados.senha, valor: dados.senha.valorPadrao, requerido: true },
-        })
-    }
+        });
+    };
 
     const cadastrarUsuario = () => {
 
@@ -78,12 +77,12 @@ function ModalUsuario(props) {
         
         if(houveErro){
             return
-        }
+        };
 
         if(dados.senha.valor !== dados.repetirSenha.valor){
             showToast("erro", "As senhas não coincidem");
             return;
-        }
+        };
 
         usuarioUtils.cadastrarUsuario(usuarioUtils.montarUsuario(dados)).then((dados) => {
             if(dados.success){
@@ -92,17 +91,17 @@ function ModalUsuario(props) {
                 showToast("sucesso", dados.message);
             }else{
                 showToast("erro", dados.message);
-            }
+            };
         });
-    }
+    };
 
     const atualizarUsuario = () => {
 
         let houveErro = validacaoDadosUtils.exibirErroCampo(validacaoDadosUtils.validarDados(dados), false);
 
         if(houveErro){
-            return
-        }
+            return;
+        };
 
         usuarioUtils.atualizarUsuario(usuarioUtils.montarUsuario(dados), dados.id.valor).then((dados) => {
             if(dados.success){
@@ -110,9 +109,9 @@ function ModalUsuario(props) {
                 showToast("sucesso", dados.message);
             }else{
                 showToast("erro", dados.message);
-            }
+            };
         });
-    }
+    };
 
     return (
         <ModalControle 
@@ -217,8 +216,8 @@ function ModalUsuario(props) {
                 </>
             }
         />
-    )
-}
+    );
+};
 
 const mapStateToProps = (state) => ({
     contador: state.Contador.contador,
@@ -228,7 +227,4 @@ const mapDispatchToProps = (dispatch) => ({
     setContador : (contador) => dispatch(contadorActions.setContador(contador)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ModalUsuario);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalUsuario);

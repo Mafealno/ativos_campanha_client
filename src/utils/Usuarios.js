@@ -45,10 +45,12 @@ export const buscarUsuarioPorId = async (idUsuario) => {
     return await backEndUtils.chamarBackEnd("GET", "/usuarios/" + idUsuario).then((resposta) => {
         if(resposta.status){
             return resposta.json().then(dados => {
-                if(dados.success)
+                if(dados.success){
                     return dados.data;
-                else
+                }
+                else{
                     return { _id: idUsuario, nome: "" };
+                }
             })
         }
     })

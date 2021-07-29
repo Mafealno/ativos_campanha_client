@@ -5,18 +5,16 @@ import React, {useState, useEffect} from 'react';
 import ModalControle from "../ModalControle/ModalControle";
 import EntradaDados from "../EntradaDados/EntradaDados";
 import Botao from "../Botao/Botao";
+import { showToast } from "../ToastControle/ToastControle";
 
 import * as validacaoDadosUtils from "../../utils/ValidacaoDados";
 import * as usuarioUtils from "../../utils/Usuarios";
 import { deslogar } from "../../utils/Login";
-import { showToast } from "../ToastControle/ToastControle";
 import { buscarUsuarioLogado } from "../../utils/Login";
-
 
 import "./ModalAlterarSenha.css";
 
 function ModalAlterarSenha(props) {
-
     const modeloValidacao = validacaoDadosUtils.dadosCampo;
     const [dados, setDados] = useState({
         id: { ...modeloValidacao, valorPadrao: "" },
@@ -29,7 +27,7 @@ function ModalAlterarSenha(props) {
         tipoUsuario: { ...modeloValidacao, valorPadrao: "" },
         criadoPor: { ...modeloValidacao, valorPadrao: undefined },
         criadoEm: { ...modeloValidacao, valorPadrao: undefined },
-    })
+    });
 
     useEffect(() => {
         if(props.show){
@@ -43,8 +41,8 @@ function ModalAlterarSenha(props) {
         setDados({
             ...dados, 
             id: {...dados.id, valor: dadosUsuario.id },
-        })
-    }
+        });
+    };
 
     const limparCampos = () => {
         setDados({
@@ -52,21 +50,21 @@ function ModalAlterarSenha(props) {
             id: {...dados.id, valor: dados.id.valorPadrao },
             senha: {...dados.senha, valor: dados.senha.valorPadrao },
             repetirSenha: {...dados.repetirSenha, valor: dados.repetirSenha.valorPadrao },
-        })
-    }
+        });
+    };
 
     const atualizarSenhaUsuario = () => {
 
         let houveErro = validacaoDadosUtils.exibirErroCampo(validacaoDadosUtils.validarDados(dados), false);
 
         if(houveErro){
-            return
-        }
+            return;
+        };
 
         if(dados.senha.valor !== dados.repetirSenha.valor){
             showToast("erro", "As senhas não coincidem");
             return;
-        }
+        };
 
         usuarioUtils.atualizarSenhaUsuario(usuarioUtils.montarUsuario(dados), dados.id.valor).then((dados) => {
             if(dados.success){
@@ -74,9 +72,9 @@ function ModalAlterarSenha(props) {
                 deslogar();
             }else{
                 showToast("erro", dados.message);
-            }
+            };
         });
-    }
+    };
 
     return (
         <ModalControle 
@@ -119,7 +117,7 @@ function ModalAlterarSenha(props) {
                 </div>
             }
         />
-    )
-}
+    );
+};
 
-export default ModalAlterarSenha
+export default ModalAlterarSenha;

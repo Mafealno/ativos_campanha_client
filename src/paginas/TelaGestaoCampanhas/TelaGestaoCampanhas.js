@@ -14,19 +14,23 @@ import BotaoVoltarMenu from "../../componentes/BotaoVoltarMenu/BotaoVoltarMenu";
 import { showToast } from "../../componentes/ToastControle/ToastControle";
 
 import * as campanhaUtils from "../../utils/Campanha";
+import * as arquivoRetornoUtils from "../../utils/ArquivoRetorno";
+import * as limpezaUtils from "../../utils/Limpeza";
+import * as loginUtils from "../../utils/Login";
 import * as geralUtils from "../../utils/Geral";
+
 
 import "./TelaGestaoCampanhas.css";
 
 function TelaGestaoCampanhas() {
-  const [listaCampanhasExibicao, setListaCampanhaExibicao] = useState([]);
-  const [qtdeRegistrosTabela, setQtdeRegistrosTabela] = useState(0);
-  const [data, setData] = useState();
-  const [paginacaoExibicao, setPaginacaoExibicao] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [showModalConfirmacao, setShowModalConfirmacao] = useState(false);
+  const [listaCampanhasExibicao, setListaCampanhaExibicao] = useState([]);
+  const [paginacaoExibicao, setPaginacaoExibicao] = useState([]);
+  const [qtdeRegistrosTabela, setQtdeRegistrosTabela] = useState(0);
   const [idLimpar, setIdLimpar] = useState(0);
   const [valorBuscaCampanha, setValorBuscaCampanha] = useState("");
+  const [data, setData] = useState();
   const [configPaginado, setConfigPaginado] = useState({
     quantidadePagina: 10,
     paginaAtual: 0,
@@ -78,7 +82,7 @@ function TelaGestaoCampanhas() {
               {geralUtils.formatarData(item.ImportDate)}
             </Coluna>
             <Coluna>
-              <Botao estilo={"w-100-pc btn-verde"} clique={() => ""}>
+              <Botao estilo={"w-100-pc btn-verde"} clique={() => gerarArquivoRetorno(item.CampaignID, item.CampaignName)}>
                 Arquivo de Retorno
               </Botao>
             </Coluna>
@@ -86,7 +90,7 @@ function TelaGestaoCampanhas() {
               <Botao
                 estilo={"w-100-pc btn-vermelho"}
                 clique={() =>
-                  setIdLimpar(item.id, setShowModalConfirmacao(true))
+                  setIdLimpar(item.CampaignID, setShowModalConfirmacao(true))
                 }
               >
                 Limpar
@@ -118,12 +122,35 @@ function TelaGestaoCampanhas() {
     setCarregando(false);
   };
 
+  const gerarArquivoRetorno = (idCampanha, campanha) => {
+    const usuarioLogado = loginUtils.buscarUsuarioLogado();
+    arquivoRetornoUtils.gerarArquivoRetorno(usuarioLogado.id, idCampanha, campanha).then(dados => {
+      if(dados.success){
+        showToast("sucesso", dados.message);
+      }else{
+        showToast("erro", dados.message);
+      }
+    })
+  }
+
+  const gerarLimpezaArquivo = () => {
+    const usuarioLogado = loginUtils.buscarUsuarioLogado();
+    limpezaUtils.gerarLimpezaCampanha(usuarioLogado.id, idLimpar).then(dados => {
+      if(dados.success){
+        showToast("sucesso", dados.message);
+        listarCampanhas();
+      }else{
+        showToast("erro", dados.message);
+      }
+    })
+  }
+
   return (
     <>
       <div id="container-tela-gestao-campanhas">
         <header id="cabecalho-tela-gestao-campanhas" className="p-10-px">
           <BotaoVoltarMenu />
-          <h2 className="ml-2">Gestão de campanhas</h2>
+          <h2 className="ml-2">Gestão de Campanhas</h2>
         </header>
         <main id="conteudo-tela-gestao-campanhas" className="p-10-px">
           <div className="d-flex flex-wrap">
@@ -165,7 +192,7 @@ function TelaGestaoCampanhas() {
           </div>
           <section className="sessao-conteudo-tela-gestao-campanhas">
             <div>
-              <Tabela tamanho="370">
+              <Tabela tamanho="370" titulo={
                 <Linha titulo={true}>
                   <Coluna tamanho="80">ID</Coluna>
                   <Coluna tamanho="300">Campanha</Coluna>
@@ -173,6 +200,7 @@ function TelaGestaoCampanhas() {
                   <Coluna tamanho="200">Data de Importação</Coluna>
                   <Coluna>Ações</Coluna>
                 </Linha>
+              }>
                 {carregando && <Carregando />}
                 {!carregando && listaCampanhasExibicao}
               </Tabela>
@@ -185,7 +213,7 @@ function TelaGestaoCampanhas() {
         show={showModalConfirmacao}
         fecharModal={() => setShowModalConfirmacao(false)}
         tituloModalConfirmacao="Essa ação é irreversivel"
-        acaoConfirmada={() => ""}
+        acaoConfirmada={() => gerarLimpezaArquivo()}
       />
     </>
   );

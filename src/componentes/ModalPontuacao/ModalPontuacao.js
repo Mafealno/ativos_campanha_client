@@ -6,15 +6,14 @@ import { mask } from "remask";
 import Tabela from "../../componentes/Tabela/Tabela";
 import Linha from "../../componentes/Linha/Linha";
 import Coluna from "../../componentes/Coluna/Coluna";
-import ModalControle from '../ModalControle/ModalControle';
+import ModalControle from "../ModalControle/ModalControle";
 
 import * as pontuacaoUtils from "../../utils/Pontuacoes";
 
 import "./ModalPontuacao.css";
 
 function ModalPontuacao(props) {
-
-    const mascaras = ['(99) 9999-9999',  '(99) 99999-9999'];
+    const mascaras = ['(99) 99999-9999'];
 
     const [pontuacoesExibicao, setPontuacoesExibicao] = useState([]);
     const [listaPropriedades, setListaPropriedades] = useState([]);
@@ -31,7 +30,7 @@ function ModalPontuacao(props) {
             renderizarLista(list);
         }else{
             setPontuacoesExibicao([]);
-        }
+        };
     }, [props.show]);
 
     useEffect(() => {
@@ -48,7 +47,7 @@ function ModalPontuacao(props) {
                 </Linha>
             );
         }));
-     }
+     };
 
     const alterarOrdernacaoLista = (tipoOrdenacao) => {
 
@@ -62,13 +61,13 @@ function ModalPontuacao(props) {
         }else{
             ordem = true;
             contador = 1;
-        }
+        };
         
         if(contador == 3){
             tipoOrdenacao = "";
             ordem = true;
             contador = 1;
-        }
+        };
 
         if(elAnterior){
             elAnterior.classList.remove("fa-caret-up");
@@ -78,7 +77,7 @@ function ModalPontuacao(props) {
         if(tipoOrdenacao != ""){
             const tipoIcon = !ordem ? "up" : "down"
             elAtual.classList.add("fa-caret-" + tipoIcon);
-        }
+        };
         
         setOrdenacaoLista({
             tipoOrdenacao: tipoOrdenacao,
@@ -97,17 +96,18 @@ function ModalPontuacao(props) {
                     <div className="row">
                         <div className="col-12 centralizar">
                             <h5>
-                                Telefone: {mask(props.dados.telefone || 0, mascaras)}
+                                {mask(props.dados.telefone || 0, mascaras)}
                             </h5>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-12">
-                            <Tabela tamanho="150">
+                            <Tabela tamanho="200" titulo={
                                 <Linha titulo={true}>
                                     <Coluna tamanho="350" id="propriedade" ordernar={() => alterarOrdernacaoLista("propriedade")}>Pontuação</Coluna>
                                     <Coluna id="valor" ordernar={() => alterarOrdernacaoLista("valor")}>Valor</Coluna>
                                 </Linha>
+                            }>
                                 {pontuacoesExibicao}
                             </Tabela>
                         </div>
@@ -115,7 +115,7 @@ function ModalPontuacao(props) {
                 </>
             }
         />
-    )
-}
+    );
+};
 
 export default ModalPontuacao;

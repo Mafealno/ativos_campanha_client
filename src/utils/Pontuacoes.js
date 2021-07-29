@@ -15,6 +15,23 @@ export const buscarPontuacoesPaginado = async (quantidadePagina, paginaAtual) =>
     })
 }
 
+export const buscarPontuacoesPorTelefone = async (quantidadePorPagina, telefone) => {
+
+    const requisicao = {
+        paginaAtual: 0,
+        quantidadePagina : quantidadePorPagina,
+        telefone: telefone
+    }
+
+    return await backEndUtils.chamarBackEnd("POST", "/pontuacao_por_telefone", requisicao).then((resposta) => {
+        if(resposta.status == 200) {
+            return resposta.json().then(dados => {
+                return dados
+            });
+        }
+    })
+}
+
 export const retornarPropriedades = (obj) => {
 
     let propriedades = [];

@@ -7,8 +7,13 @@ export const formatarData = (data) => {
     return dataDayJs.format('DD/MM/YYYY');
 }
 
-export const formatarDataHora = (data) => {
-    const dataDayJs = dayjs(data).add(3, 'hour');
+export const formatarDataHora = (data, horasAdd) => {
+    
+    let dataDayJs = dayjs(data)
+
+    if(horasAdd){
+        dataDayJs = dataDayJs.add(horasAdd, 'hour');
+    }
 
     return dataDayJs.format('DD/MM/YYYY HH:mm');
 }

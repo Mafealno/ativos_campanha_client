@@ -24,8 +24,17 @@ export const buscarCampanhaPorNomePaginado = async (nomeCampanha, quantidadePagi
     }
 
     return await backEndUtils.chamarBackEnd("POST", "/campanhas/findbyname", requisicao).then((resposta) => {
-        // if(resposta.status == 200){
+        if(resposta.status){
             return resposta.json().then(dados => dados)
-        // }
+        }
+    })
+}
+
+export const buscarCampanhaPorId = async (idCampanha) => {
+
+    return await backEndUtils.chamarBackEnd("GET", "/campanhas/findbyid/" + idCampanha).then((resposta) => {
+        if(resposta.status){
+            return resposta.json().then(dados => dados);
+        }
     })
 }

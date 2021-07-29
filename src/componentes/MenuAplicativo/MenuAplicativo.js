@@ -22,7 +22,7 @@ function MenuAplicativo(props) {
   useEffect(() => {
     if (props.showJanelaSuspensa) {
       window.addEventListener("click", listenerClick, true);
-    }
+    };
   }, [props.showJanelaSuspensa]);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function MenuAplicativo(props) {
       setUsuario(usuarioLogado);
     }else{
       historico.push("/login");
-    }
+    };
   }, [localStorage.getItem("usuarioLogado")]);
 
   const listenerClick = () => {
@@ -80,7 +80,7 @@ function MenuAplicativo(props) {
       />
     </>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   showJanelaSuspensa: state.MenuAplicativo.showJanelaSuspensa,

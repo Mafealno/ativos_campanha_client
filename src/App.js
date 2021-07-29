@@ -42,7 +42,7 @@ function App() {
             <div id="container-menu-principal">
               <Rota caminho="/dashboard/menu" exigeAutenticacao={true} componente={()=> 
               <>
-                <Permissao nome="TelaGestaoUsuarios" componente={() => <ItemMenuPrincipal titulo="Gestão de usuários" descricao="Criação de usuários do sistema" acaoExecutar={"/dashboard/usuarios"} /> } />
+                <Permissao nome="TelaGestaoUsuarios" componente={() => <ItemMenuPrincipal titulo="Gestão de Usuários" descricao="Criação de usuários do sistema" acaoExecutar={"/dashboard/usuarios"} /> } />
                 <Permissao nome="TelaGestaoCampanhas" componente={() => <ItemMenuPrincipal titulo="Gestão de Campanhas" descricao="Gerar arquivos de retorno e zerar campanhas" acaoExecutar={"/dashboard/campanhas"} /> } />
                 <Permissao nome="TelaHistoricoArquivoRetorno" componente={() => <ItemMenuPrincipal titulo="Historico de Arquivos de Retorno" descricao="Historico de geração de arquivo de retorno" acaoExecutar={"/dashboard/arquivo-retorno"} /> } />
                 <Permissao nome="TelaHistoricoLimpeza" componente={() => <ItemMenuPrincipal titulo="Historico de Limpeza" descricao="Historico de limpeza de Campanhas" acaoExecutar={"/dashboard/limpeza"} /> } />

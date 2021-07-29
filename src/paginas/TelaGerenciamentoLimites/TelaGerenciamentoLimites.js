@@ -18,10 +18,10 @@ import "./TelaGerenciamentoLimites.css";
 
 function TelaGerenciamentoLimites(props) {
   const [carregando, setCarregando] = useState(true);
-  const [list, setList] = useState([]);
-  const [listaLimitesExibicao, setListaLimitesExibicao] = useState([]);
   const [showModalLimite, setShowModalLimite] = useState(false);
   const [dadosEdicao, setDadosEdicao] = useState(false);
+  const [list, setList] = useState([]);
+  const [listaLimitesExibicao, setListaLimitesExibicao] = useState([]);
 
   useEffect(() => {
     listarLimites();
@@ -137,12 +137,13 @@ function TelaGerenciamentoLimites(props) {
         <main id="conteudo-tela-gerenciamento-limites" className="p-10-px">
           <section className="sessao-conteudo-tela-gerenciamento-limites">
             <div>
-              <Tabela tamanho="400">
+              <Tabela tamanho="400" titulo={
                 <Linha titulo={true}>
                   <Coluna tamanho="600">Descrição do resultado</Coluna>
                   <Coluna tamanho="200">Limite</Coluna>
                   <Coluna>Ações</Coluna>
                 </Linha>
+              }>
                 {!carregando && listaLimitesExibicao}
                 {carregando && <Carregando />}
               </Tabela>

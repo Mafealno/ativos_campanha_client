@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./Linha.css";
 
 function Linha(props) {
@@ -15,7 +16,7 @@ function Linha(props) {
                 {props.children}
             </div>
         )
-    }  
-}
+    };
+};
 
-export default Linha
+export default Linha;

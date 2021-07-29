@@ -18,14 +18,14 @@ import * as geralUtils from "../../utils/Geral";
 import "./TelaHistoricoLimpeza.css";
 
 function TelaHistoricoLimpeza() {
-  const [listaLimpezaExibicao, setListaLimpezaExibicao] = useState([]);
-  const [data, setData] = useState();
-  const [qtdeRegistrosTabela, setQtdeRegistrosTabela] = useState(0);
-  const [paginacaoExibicao, setPaginacaoExibicao] = useState(<></>);
   const [carregando, setCarregando] = useState(true);
+  const [listaLimpezaExibicao, setListaLimpezaExibicao] = useState([]);
+  const [qtdeRegistrosTabela, setQtdeRegistrosTabela] = useState(0);
   const [valorBuscaCampanha, setValorBuscaCampanha] = useState("");
+  const [paginacaoExibicao, setPaginacaoExibicao] = useState(<></>);
+  const [data, setData] = useState();
   const [configPaginado, setConfigPaginado] = useState({
-    quantidePorPagina: 10,
+    quantidadePorPagina: 10,
     paginaAtual: 0,
   });
 
@@ -35,21 +35,21 @@ function TelaHistoricoLimpeza() {
 
   useEffect(() => {
     if (data) {
-      montaListaHistoricoLimpeza(data.historico_limpeza, data);
+      montaListaHistoricoLimpeza(data.historicos, data);
     }
   }, [data, qtdeRegistrosTabela]);
 
   const listarHistoricoLimpeza = () => {
     limpezaUtils
-      .buscarLimpezaPaginado(
-        configPaginado.quantidePorPagina,
+      .buscarHistoricoLimpezaPaginado(
+        configPaginado.quantidadePorPagina,
         configPaginado.paginaAtual
       )
       .then((dados) => {
         if (dados.success) {
           setQtdeRegistrosTabela(dados.data.totalRegistros);
           setData(dados.data);
-          if (dados.data == 0) {
+          if (dados.data.historicos.length == 0) {
             showToast("aviso", "Não há registros a serem listados");
             setCarregando(false);
           }
@@ -66,21 +66,21 @@ function TelaHistoricoLimpeza() {
         return (
           <Linha>
             <Coluna tamanho="400">
-              {item.usuario.nome || item.usuario._id}
+              {item.usuario ? item.usuario.nome + " " + item.usuario.sobrenome : item.usuario._id}
             </Coluna>
-            <Coluna>{item.campanha + " " + item.sobrenome}</Coluna>
-            <Coluna>{geralUtils.formatarData(item.feito_em)}</Coluna>
+            <Coluna tamanho="400">{item.campanha}</Coluna>
+            <Coluna>{geralUtils.formatarDataHora(item.feito_em)}</Coluna>
           </Linha>
         );
       })
     );
 
-    if (qtdeRegistrosTabela <= configPaginado.quantidePorPagina) {
+    if (qtdeRegistrosTabela <= configPaginado.quantidadePorPagina) {
       setPaginacaoExibicao(<></>);
     } else {
       setPaginacaoExibicao(
         <Paginacao
-          quantidadePagina={configPaginado.quantidePorPagina}
+          quantidadePagina={configPaginado.quantidadePorPagina}
           totalRegistros={dados.totalRegistros}
           paginaAtual={(paginaSelecionada) =>
             setConfigPaginado({
@@ -122,9 +122,7 @@ function TelaHistoricoLimpeza() {
                 <Botao
                   estilo={"w-100-pc btn-azul"}
                   clique={() =>
-                    montaListaHistoricoLimpeza(
-                      limpezaUtils
-                        .buscarLimpezaPorNomeCampanha(
+                      limpezaUtils.buscarHistoricoLimpezaPorNomeCampanha(
                           valorBuscaCampanha,
                           configPaginado.quantidadePagina
                         )
@@ -132,7 +130,6 @@ function TelaHistoricoLimpeza() {
                           setData(dados.data);
                           setQtdeRegistrosTabela(dados.data.totalRegistros);
                         })
-                    )
                   }
                 >
                   Buscar
@@ -143,12 +140,13 @@ function TelaHistoricoLimpeza() {
         </div>
         <section className="sessao-conteudo-tela-historico-limpeza">
           <div>
-            <Tabela tamanho="370">
+            <Tabela tamanho="370" titulo={
               <Linha titulo={true}>
                 <Coluna tamanho="400">Usuário</Coluna>
-                <Coluna>Campanha</Coluna>
+                <Coluna tamanho="400">Campanha</Coluna>
                 <Coluna>Feito em</Coluna>
-              </Linha>
+              </Linha> 
+              }>
               {!carregando && listaLimpezaExibicao}
               {carregando && <Carregando />}
             </Tabela>

@@ -39,6 +39,6 @@ function ModalConfirmacao(props) {
       </>
     </div>
   );
-}
+};
 
 export default ModalConfirmacao;
