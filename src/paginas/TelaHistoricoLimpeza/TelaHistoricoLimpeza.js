@@ -60,14 +60,12 @@ function TelaHistoricoLimpeza() {
       });
   };
 
-  const montaListaHistoricoLimpeza = (list, dados) => {
+  const montaListaHistoricoLimpeza = (list) => {
     setListaLimpezaExibicao(
       list.map((item) => {
         return (
           <Linha>
-            <Coluna tamanho="400">
-              {item.usuario ? item.usuario.nome + " " + item.usuario.sobrenome : item.usuario._id}
-            </Coluna>
+            <Coluna tamanho="400">{item.nome + " " + item.sobrenome}</Coluna>
             <Coluna tamanho="400">{item.campanha}</Coluna>
             <Coluna>{geralUtils.formatarDataHora(item.feito_em)}</Coluna>
           </Linha>
@@ -81,7 +79,7 @@ function TelaHistoricoLimpeza() {
       setPaginacaoExibicao(
         <Paginacao
           quantidadePagina={configPaginado.quantidadePorPagina}
-          totalRegistros={dados.totalRegistros}
+          totalRegistros={qtdeRegistrosTabela}
           paginaAtual={(paginaSelecionada) =>
             setConfigPaginado({
               ...configPaginado,
@@ -94,6 +92,13 @@ function TelaHistoricoLimpeza() {
     }
     setCarregando(false);
   };
+
+  const buscarHistoricoLimpezaPorNomeCampanha = () => {
+    limpezaUtils.buscarHistoricoLimpezaPorNomeCampanha(valorBuscaCampanha, configPaginado.quantidadePorPagina).then(dados => {
+      setData(dados.data);
+      setQtdeRegistrosTabela(dados.data.totalRegistros);
+    })
+  }
 
   return (
     <div id="container-tela-historico-limpeza">
@@ -113,6 +118,7 @@ function TelaHistoricoLimpeza() {
                   id="buscar-campanha"
                   nome="buscar-campanha"
                   descricao="Digite o nome da campanha"
+                  acaoAcionar = {() => buscarHistoricoLimpezaPorNomeCampanha()}
                   valor={(valorEntrada) =>
                     setValorBuscaCampanha(valorEntrada.valor)
                   }
@@ -121,16 +127,7 @@ function TelaHistoricoLimpeza() {
               <div className="col">
                 <Botao
                   estilo={"w-100-pc btn-azul"}
-                  clique={() =>
-                      limpezaUtils.buscarHistoricoLimpezaPorNomeCampanha(
-                          valorBuscaCampanha,
-                          configPaginado.quantidadePagina
-                        )
-                        .then(dados => {
-                          setData(dados.data);
-                          setQtdeRegistrosTabela(dados.data.totalRegistros);
-                        })
-                  }
+                  clique={() => buscarHistoricoLimpezaPorNomeCampanha()}
                 >
                   Buscar
                 </Botao>

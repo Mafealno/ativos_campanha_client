@@ -87,8 +87,8 @@ function ModalUsuario(props) {
         usuarioUtils.cadastrarUsuario(usuarioUtils.montarUsuario(dados)).then((dados) => {
             if(dados.success){
                 props.setContador(props.contador);
-                props.fecharModal();
                 showToast("sucesso", dados.message);
+                props.fecharModal();
             }else{
                 showToast("erro", dados.message);
             };
@@ -107,6 +107,7 @@ function ModalUsuario(props) {
             if(dados.success){
                 props.setContador(props.contador);
                 showToast("sucesso", dados.message);
+                props.fecharModal();
             }else{
                 showToast("erro", dados.message);
             };

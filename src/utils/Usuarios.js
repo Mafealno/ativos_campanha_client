@@ -1,5 +1,6 @@
 /* eslint-disable eqeqeq */
 import * as backEndUtils from "./BackEnd";
+import { buscarUsuarioLogado } from "./Login";
 
 export const montarUsuario = (dados) => {
     return {
@@ -74,6 +75,18 @@ export const atualizarUsuario = async (usuario, id) => {
 }
 
 export const atualizarSenhaUsuario = async (usuario, id) => {
+
+    const usuarioLogado = buscarUsuarioLogado()
+
+    usuario.criado_em = usuarioLogado.criado_em;
+    usuario.criado_por = usuarioLogado.criado_por;
+    usuario.email = usuarioLogado.email;
+    usuario.nome = usuarioLogado.nome;
+    usuario.sobrenome = usuarioLogado.sobrenome;
+    usuario.usuario = usuarioLogado.usuario;
+    usuario.permissoes =  usuarioLogado.permissoes;
+
+    console.log(usuario)
 
     return await backEndUtils.chamarBackEnd("PUT", "/usuarios/" + id, usuario).then((resposta) => {
         if(resposta.status){

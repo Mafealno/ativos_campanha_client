@@ -61,15 +61,13 @@ function TelaHistoricoArquivoRetorno() {
       });
   };
 
-  const montaListaArquivoRetorno = (list, dados) => {
+  const montaListaArquivoRetorno = (list) => {
     
     setListaArquivoRetornoExibicao(
       list.map((item) => {
           return (
             <Linha>
-              <Coluna tamanho="400">
-                {item.usuario ? item.usuario.nome + " " + item.usuario.sobrenome : item.id_usuario}
-              </Coluna>
+              <Coluna tamanho="400">{item.nome + " " + item.sobrenome}</Coluna>
               <Coluna tamanho="300">{item.campanha}</Coluna>
               <Coluna>{geralUtils.formatarDataHora(item.feito_em)}</Coluna>
             </Linha>
@@ -83,7 +81,7 @@ function TelaHistoricoArquivoRetorno() {
       setPaginacaoExibicao(
         <Paginacao
           quantidadePagina={configPaginado.quantidadePorPagina}
-          totalRegistros={dados.totalRegistros}
+          totalRegistros={qtdeRegistrosTabela}
           paginaAtual={(paginaSelecionada) =>
             setConfigPaginado({
               ...configPaginado,
@@ -96,6 +94,13 @@ function TelaHistoricoArquivoRetorno() {
     }
     setCarregando(false);
   };
+
+  const buscarHistoricoArquivoRetornoPorNomeCampanha = () => {
+    arquivoRetornoUtils.buscarHistoricoArquivoRetornoPorNomeCampanha(valorBuscaCampanha, configPaginado.quantidadePorPagina).then((dados) => {
+        setData(dados.data);
+        setQtdeRegistrosTabela(dados.data.totalRegistros)
+      })
+  }
 
   return (
     <div id="container-tela-historico-arquivo-retorno">
@@ -115,6 +120,7 @@ function TelaHistoricoArquivoRetorno() {
                   id="buscar-campanha"
                   nome="buscar-campanha"
                   descricao="Digite o nome da campanha"
+                  acaoAcionar = {() => buscarHistoricoArquivoRetornoPorNomeCampanha()}
                   valor={(valorEntrada) =>
                     setValorBuscaCampanha(valorEntrada.valor)
                   }
@@ -123,16 +129,7 @@ function TelaHistoricoArquivoRetorno() {
               <div className="col">
                 <Botao
                   estilo={"w-100-pc btn-azul"}
-                  clique={() =>
-                      arquivoRetornoUtils.buscarHistoricoArquivoRetornoPorNomeCampanha(
-                          valorBuscaCampanha,
-                          configPaginado.quantidadePorPagina
-                        )
-                        .then((dados) => {
-                          setData(dados.data);
-                          setQtdeRegistrosTabela(dados.data.totalRegistros)
-                        })
-                  }
+                  clique={() => buscarHistoricoArquivoRetornoPorNomeCampanha()}
                 >
                   Buscar
                 </Botao>

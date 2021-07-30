@@ -1,5 +1,6 @@
 /* eslint-disable eqeqeq */
 import Cookies from "js-cookie"; 
+const linkBackEnd = process.env.REACT_APP_API_URL;
 
 export const usuarioLogado = (exigeAutenticacao) => {
     
@@ -16,9 +17,13 @@ export const usuarioLogado = (exigeAutenticacao) => {
     }
 }
 
-export const deslogar = () => {
+export const deslogar = (historico) => {
     Cookies.remove('X-JWT-Token');
     localStorage.removeItem("usuarioLogado");
+
+    if(historico){
+        historico.push("/login");
+    }
 }
 
 export const logar = async (usuario, senha) => {
@@ -42,7 +47,7 @@ export const logar = async (usuario, senha) => {
         sobrenome: "",
     }
     
-    return await fetch("http://localhost:4001/login", {
+    return await fetch(linkBackEnd + "/login", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/json",

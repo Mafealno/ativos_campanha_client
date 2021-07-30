@@ -66,7 +66,6 @@ function TelaGerenciamentoLimites(props) {
         );
       })
     );
-
     setCarregando(false);
   };
 
@@ -77,54 +76,6 @@ function TelaGerenciamentoLimites(props) {
     setShowModalLimite(true);
   };
 
-  const cadastrarLimites = () => {
-    const limites = [
-      "abandonado ura", 
-      "agente rejeitou", 
-      "callback secretaria", 
-      "chamada cancelada perda conexao gerenciador", 
-      "chamada desconectada operadora",
-      "cliente abandonado ura",
-    "cliente abandonou",
-    "discadora abandonou",
-    "erro discagem",
-    "falha rede",
-    "falha reservar agente cb",
-    "fax",
-    "fora servico",
-    "interceptacao operador",
-    "maquina khomp",
-    "mensagem nao suportada pelo roteador",
-    "mudanca campanha",
-    "mudo",
-    "mudo khomp",
-    "numero blacklist",
-    "numero errado",
-    "numero invalido",
-    "numero nao discado",
-    "ocupado",
-    "pessoa errada",
-    "respondido cpc",
-    "retorno chamada",
-    "secretaria eletronica",
-    "sem resposta",
-    "sem sinal",
-    "sem tom chamada"];
-    limites.forEach(item => {
-    setTimeout(()=> {
-    const obj = {
-      nome: item.replace(" ", "_"),
-    descricao : item,
-    valor: 10
-    }
-    
-    limiteUtils.cadastrarLimites(obj).then((data) => {
-    showToast("sucesso", item)
-    })
-    }, 1000)
-    
-    })
-    }
   
   return (
     <>
@@ -132,7 +83,6 @@ function TelaGerenciamentoLimites(props) {
         <header id="cabecalho-tela-gerenciamento-limites" className="p-10-px">
           <BotaoVoltarMenu />
           <h2 className="ml-2">Gerenciamento de Limites</h2>
-          <Botao clique={() => cadastrarLimites()}>Teste</Botao>
         </header>
         <main id="conteudo-tela-gerenciamento-limites" className="p-10-px">
           <section className="sessao-conteudo-tela-gerenciamento-limites">

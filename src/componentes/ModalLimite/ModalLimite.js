@@ -53,6 +53,11 @@ function ModalLimite(props) {
         return
     };
 
+    if(dados.valor.valor < 0){
+      showToast("erro", "Valor não pode ser negativo");
+      return;
+    }
+
     limiteUtils.atualizarLimite(dados).then((dados) => {
         if(dados.success){
             props.setContador(props.contador);

@@ -81,7 +81,7 @@ function TelaGestaoUsuarios(props) {
       });
   };
 
-  const montarListaUsuarios = (list, dados) => {
+  const montarListaUsuarios = (list) => {
     const usuarioLogado = buscarUsuarioLogado();
 
     setListaUsuariosExibicao(
@@ -126,7 +126,7 @@ function TelaGestaoUsuarios(props) {
       setPaginacaoExibicao(
         <Paginacao
           quantidadePagina={configPaginado.quantidadePagina}
-          totalRegistros={dados.totalRegistros}
+          totalRegistros={qtdeRegistrosTabela}
           paginaAtual={(paginaSelecionada) =>
             setConfigPaginado({
               ...configPaginado,
@@ -152,6 +152,13 @@ function TelaGestaoUsuarios(props) {
     });
   };
 
+  const buscarUsuarioPorNomePagina = () => {
+    usuariosUtils.buscarUsuarioPorNomePagina(valorBuscaUsuario, configPaginado.quantidadePagina).then(dados => {
+      setData(dados.data);
+      setQtdeRegistrosTabela(dados.data.totalRegistros);
+    })
+  }
+
   return (
     <>
       <div id="container-tela-gestao-usuarios">
@@ -172,6 +179,7 @@ function TelaGestaoUsuarios(props) {
                     nome="buscar-usuario"
                     descricao="Digite o nome do usuário"
                     autoCompletar="off"
+                    acaoAcionar={() => buscarUsuarioPorNomePagina()}
                     valor={(valorEntrada) =>
                       setValorBuscaUsuario(valorEntrada.valor)
                     }
@@ -180,17 +188,7 @@ function TelaGestaoUsuarios(props) {
                 <div className="col">
                   <Botao
                     estilo={"w-100-pc btn-azul"}
-                    clique={() =>
-                      usuariosUtils
-                        .buscarUsuarioPorNomePagina(
-                          valorBuscaUsuario,
-                          configPaginado.quantidadePagina
-                        )
-                        .then(dados => {
-                          setData(dados.data);
-                          setQtdeRegistrosTabela(dados.data.totalRegistros);
-                        })
-                    }
+                    clique={() => buscarUsuarioPorNomePagina()}
                   >
                     Buscar
                   </Botao>

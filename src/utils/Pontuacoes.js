@@ -32,6 +32,10 @@ export const buscarPontuacoesPorTelefone = async (quantidadePorPagina, telefone)
     })
 }
 
+export const atualizarNotas = () => {
+    backEndUtils.chamarBackEnd("POST", "/atualizarNotas");
+}
+
 export const retornarPropriedades = (obj) => {
 
     let propriedades = [];

@@ -1,6 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
+import { useHistory } from "react-router-dom";
 
 import ModalControle from "../ModalControle/ModalControle";
 import EntradaDados from "../EntradaDados/EntradaDados";
@@ -28,6 +29,8 @@ function ModalAlterarSenha(props) {
         criadoPor: { ...modeloValidacao, valorPadrao: undefined },
         criadoEm: { ...modeloValidacao, valorPadrao: undefined },
     });
+
+    const historico = useHistory();
 
     useEffect(() => {
         if(props.show){
@@ -69,7 +72,7 @@ function ModalAlterarSenha(props) {
         usuarioUtils.atualizarSenhaUsuario(usuarioUtils.montarUsuario(dados), dados.id.valor).then((dados) => {
             if(dados.success){
                 showToast("sucesso", dados.message);
-                deslogar();
+                deslogar(historico);
             }else{
                 showToast("erro", dados.message);
             };

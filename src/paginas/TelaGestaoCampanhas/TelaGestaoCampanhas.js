@@ -70,7 +70,7 @@ function TelaGestaoCampanhas() {
       });
   };
 
-  const montaListaCampanhas = (list, dados) => {
+  const montaListaCampanhas = (list) => {
     setListaCampanhaExibicao(
       list.map((item) => {
         return (
@@ -124,7 +124,7 @@ function TelaGestaoCampanhas() {
 
   const gerarArquivoRetorno = (idCampanha, campanha) => {
     const usuarioLogado = loginUtils.buscarUsuarioLogado();
-    arquivoRetornoUtils.gerarArquivoRetorno(usuarioLogado.id, idCampanha, campanha).then(dados => {
+    arquivoRetornoUtils.gerarArquivoRetorno(usuarioLogado.id, idCampanha, campanha, usuarioLogado.nome, usuarioLogado.sobrenome).then(dados => {
       if(dados.success){
         showToast("sucesso", dados.message);
       }else{
@@ -135,12 +135,23 @@ function TelaGestaoCampanhas() {
 
   const gerarLimpezaArquivo = () => {
     const usuarioLogado = loginUtils.buscarUsuarioLogado();
-    limpezaUtils.gerarLimpezaCampanha(usuarioLogado.id, idLimpar).then(dados => {
+    limpezaUtils.gerarLimpezaCampanha(usuarioLogado.id, idLimpar, usuarioLogado.nome, usuarioLogado.sobrenome).then(dados => {
       if(dados.success){
         showToast("sucesso", dados.message);
         listarCampanhas();
       }else{
         showToast("erro", dados.message);
+      }
+    })
+  }
+
+  const buscarCampanhaPorNomePaginado = () => {
+    campanhaUtils.buscarCampanhaPorNomePaginado(valorBuscaCampanha, configPaginado.quantidadePagina).then(dados => {
+      setData(dados.data);
+      if(dados.data.primeiro_registro){
+        setQtdeRegistrosTabela(dados.data.primeiro_registro.Total_Registros);
+      }else{
+        setQtdeRegistrosTabela(0);
       }
     })
   }
@@ -164,6 +175,7 @@ function TelaGestaoCampanhas() {
                     id="buscar-campanha"
                     nome="buscar-campanha"
                     descricao="Digite o nome da campanha"
+                    acaoAcionar={() => buscarCampanhaPorNomePaginado()}
                     valor={(valorEntrada) =>
                       setValorBuscaCampanha(valorEntrada.valor)
                     }
@@ -172,17 +184,7 @@ function TelaGestaoCampanhas() {
                 <div className="col">
                   <Botao
                     estilo={"w-100-pc btn-azul"}
-                    clique={() =>
-                      campanhaUtils
-                        .buscarCampanhaPorNomePaginado(
-                          valorBuscaCampanha,
-                          configPaginado.quantidadePagina
-                        )
-                        .then(dados => {
-                          setData(dados.data);
-                          setQtdeRegistrosTabela(dados.data.primeiro_registro.Total_Registros);
-                        })
-                    }
+                    clique={() => buscarCampanhaPorNomePaginado()}
                   >
                     Buscar
                   </Botao>

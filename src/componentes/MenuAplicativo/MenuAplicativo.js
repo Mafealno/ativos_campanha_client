@@ -6,9 +6,11 @@ import { connect } from "react-redux";
 
 import ModalAlterarSenha from "../ModalAlterarSenha/ModalAlterarSenha";
 import ModalConfirmacao from "../ModalConfirmacao/ModalConfirmacao";
+import { showToast } from "../ToastControle/ToastControle";
 
 import * as menuAplicativoActions from "../../stores/actions/MenuAplicativo";
 import * as loginUtils from "../../utils/Login";
+import { atualizarNotas } from "../../utils/Pontuacoes";
 
 import "./MenuAplicativo.css";
 
@@ -47,7 +49,7 @@ function MenuAplicativo(props) {
         </Link>
         <div className="opcoes-menu">
           <span onClick={() => props.setShowJanelaSuspensa(true)}>
-            {usuario.nome || "Usuário"}
+            {usuario.nome + " " + usuario.sobrenome || "Usuário"}
             <i className="dropdown-toggle ml-3"></i>
           </span>
         </div>
@@ -62,6 +64,9 @@ function MenuAplicativo(props) {
           </Link>
           <div onClick={() => setShowModalAlterarSenha(true)}>
             <i className="fa fa-gears mr-3"></i>Alterar minha senha
+          </div>
+          <div onClick={() => atualizarNotas(showToast("aviso", "Atualizando pontuações"))}>
+            <i className="fa fa-refresh mr-3"></i>Atualizar pontuações
           </div>
           <footer onClick={() => setShowModalConfirmacao(true)}>
             <i className="fa fa-sign-out mr-3"></i>Sair

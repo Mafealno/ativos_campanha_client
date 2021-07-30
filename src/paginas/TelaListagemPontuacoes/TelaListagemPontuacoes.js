@@ -65,7 +65,7 @@ function TelaListagemPontuacoes() {
           });
       };
 
-      const montaListaPontuacoes = (list, dados) => {
+      const montaListaPontuacoes = (list) => {
         setListaPontuacaoExibicao(
           list.map((item) => {
             return (
@@ -84,7 +84,7 @@ function TelaListagemPontuacoes() {
             setPaginacaoExibicao(
               <Paginacao
                 quantidadePagina={configPaginado.quantidePorPagina}
-                totalRegistros={dados.totalRegistros}
+                totalRegistros={qtdeRegistrosTabela}
                 paginaAtual={(paginaSelecionada) =>
                   setConfigPaginado({
                     ...configPaginado,
@@ -105,6 +105,12 @@ function TelaListagemPontuacoes() {
         setShowModalPontuacao(true);
       };
 
+      const buscarPontuacoesPorTelefone = () => {
+        pontuacoesUtils.buscarPontuacoesPorTelefone(configPaginado.quantidePorPagina, valorBuscaTelefone).then(dados => {
+          setData(dados.data)
+          setQtdeRegistrosTabela(dados.data.totalRegistros)
+        })
+      } 
     return (
       <>
         <div id="container-tela-listagem-pontuacoes">
@@ -124,24 +130,16 @@ function TelaListagemPontuacoes() {
                                     id="buscar-telefone"
                                     nome="buscar-telefone"
                                     descricao="Digite o número de telefone"
-                                    valor={(valorEntrada) => setValorBuscaTelefone(valorEntrada.valor)
-                                }
+                                    acaoAcionar = {() => buscarPontuacoesPorTelefone()}
+                                    valor={(valorEntrada) => 
+                                      setValorBuscaTelefone(valorEntrada.valor)
+                                      }
                                 />
                             </div>
                             <div className="col-3">
                                 <Botao
                                   estilo={"w-100-pc btn-azul"}
-                                  clique={() => 
-                                        pontuacoesUtils
-                                          .buscarPontuacoesPorTelefone(
-                                            configPaginado.quantidePorPagina,
-                                            valorBuscaTelefone
-                                          )
-                                          .then(dados => {
-                                            setData(dados.data)
-                                            setQtdeRegistrosTabela(dados.data.totalRegistros)
-                                          })
-                                  }
+                                  clique={() => buscarPontuacoesPorTelefone()}
                                   >
                                     Buscar
                                 </Botao>

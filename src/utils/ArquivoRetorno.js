@@ -35,25 +35,20 @@ export const buscarHistoricoArquivoRetornoPorNomeCampanha = async (nomeCampanha,
 
     return await backEndUtils.chamarBackEnd("POST", "/historico_retorno_campanha", requisicao).then((resposta) => {
         if(resposta.status == 200) {
-            return resposta.json().then( async (dados) => {
-                if(dados.data.historicos.length > 0){
-                    for(let item of dados.data.historicos){
-                        item.usuario = await usuarioUtils.buscarUsuarioPorId(item.id_usuario).then(dados => dados);
-                    }
-                }
-                return dados;
-            });
+            return resposta.json().then(dados => dados);
         }else{
             return {};
         }
     })
 }
 
-export const gerarArquivoRetorno = async (idUsuario, idCampanha, campanha) => {
+export const gerarArquivoRetorno = async (idUsuario, idCampanha, campanha, nomeUsuario, sobrenomeUsuario) => {
 
     const requisicao = {
         id_usuario: idUsuario,
         id_campanha: idCampanha,
+        nome: nomeUsuario,
+        sobrenome: sobrenomeUsuario, 
         campanha: campanha,
         feito_em: new Date()
     }
